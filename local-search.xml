@@ -36,6 +36,25 @@
   
   
   <entry>
+    <title>vsCode使用技巧</title>
+    <link href="/2021/01/11/vsCode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+    <url>/2021/01/11/vsCode%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>终端使用 code . 的方式在 VSCode 中打开当前项目</p></blockquote><h2 id="Windows-用户"><a href="#Windows-用户" class="headerlink" title="Windows 用户"></a>Windows 用户</h2><p>直接在终端项目目录中输入</p><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">code</span> .<br></code></pre></td></tr></table></figure><h2 id="Mac-用户"><a href="#Mac-用户" class="headerlink" title="Mac 用户"></a>Mac 用户</h2><p>打开 VSCode 使用 shift + command +P 打开命令面板，然后输入</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">Install</span> ‘code&#x27; <span class="hljs-keyword">command</span> in PATH<br></code></pre></td></tr></table></figure><p>点击安装即可.</p><p>再打开终端输入 code . 即可在 VSCode 中打开当前文件夹</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>vsCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>js防止按钮重复点击</title>
     <link href="/2021/01/10/js%E9%98%B2%E6%AD%A2%E6%8C%89%E9%92%AE%E9%87%8D%E5%A4%8D%E7%82%B9%E5%87%BB/"/>
     <url>/2021/01/10/js%E9%98%B2%E6%AD%A2%E6%8C%89%E9%92%AE%E9%87%8D%E5%A4%8D%E7%82%B9%E5%87%BB/</url>
