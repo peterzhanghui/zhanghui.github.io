@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2021/01/11/hello-world/"/>
+    <url>/2021/01/11/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>js防止按钮重复点击</title>
+    <link href="/2021/01/10/js%E9%98%B2%E6%AD%A2%E6%8C%89%E9%92%AE%E9%87%8D%E5%A4%8D%E7%82%B9%E5%87%BB/"/>
+    <url>/2021/01/10/js%E9%98%B2%E6%AD%A2%E6%8C%89%E9%92%AE%E9%87%8D%E5%A4%8D%E7%82%B9%E5%87%BB/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>业务需求场景，项目中涉及到保存，修改数据的时候，多次点击按钮，因为数据处理需要时间，会造成重复操作的情况。</p></blockquote><h3 id="解决方案一：-表单按钮修改-disabled-属性，-或者在-js-事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开"><a href="#解决方案一：-表单按钮修改-disabled-属性，-或者在-js-事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开" class="headerlink" title="解决方案一： 表单按钮修改 disabled 属性， 或者在 js 事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开"></a>解决方案一： 表单按钮修改 disabled 属性， 或者在 js 事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">this.disabled</span> = <span class="hljs-literal">true</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure><h3 id="方案二：使用函数防抖（自定义，或者直接使用-lodash-的-debounce-方法）"><a href="#方案二：使用函数防抖（自定义，或者直接使用-lodash-的-debounce-方法）" class="headerlink" title="方案二：使用函数防抖（自定义，或者直接使用 lodash 的 debounce 方法）"></a>方案二：使用函数防抖（自定义，或者直接使用 lodash 的 debounce 方法）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 防抖</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn, wait</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> timeout = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (timeout !== <span class="hljs-literal">null</span>) <span class="hljs-built_in">clearTimeout</span>(timeout);<br>    timeout = <span class="hljs-built_in">setTimeout</span>(fn, wait);<br>  &#125;;<br>&#125;<br> <span class="hljs-comment">// 绑定的按钮点击事件调用防抖方法</span><br> debounce(submit, <span class="hljs-number">1000</span>)<br></code></pre></td></tr></table></figure><h3 id="方案三：可以添加-loading-动画"><a href="#方案三：可以添加-loading-动画" class="headerlink" title="方案三：可以添加 loading 动画"></a>方案三：可以添加 loading 动画</h3><p>如果涉及 http 请求，可以等 http 响应开始添加 loading 动画，完成后关闭。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>js优化</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
