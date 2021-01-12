@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>vim 常用操作 - 前端嘉嘉的博客</title>
+  <title>pm2进行服务端部署总结 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="vim 常用操作">
+            <span class="h2" id="subtitle" title="pm2进行服务端部署总结">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2017-10-16 00:00" pubdate>
-        2017年10月16日 凌晨
+      <time datetime="2020-11-30 00:00" pubdate>
+        2020年11月30日 凌晨
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      664 字
+      591 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -224,31 +224,47 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">vim 常用操作</h1>
+            <h1 style="display: none">pm2进行服务端部署总结</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>总结使用 vim 编辑文件的常用操作，后面会持续更新</p>
+<p>因为是做平台相关项目，所以对 seo 有要求, 所以考虑 使用 nuxt.js 实现服务端渲染，一个有利于 seo, 还可以提高页面加载速度。<br>本地开发一切顺利，线上部署遇到了以下问题：</p>
 </blockquote>
-<h2 id="创建编辑文件"><a href="#创建编辑文件" class="headerlink" title="创建编辑文件"></a>创建编辑文件</h2><ol>
-<li>使用 vim （vi） + 文件名进入文件（如果文件名不存在则默认为新建）</li>
-<li>进入文件后，在英文状态下输入 i(insert)，进入编辑模式。</li>
-<li>需要保存退出的时候先点 esc(英文状态下)退出插入模式。再输入 shift+：进入命令模式。</li>
+<ol>
+<li>构建好的代码放到服务器端，直接 npm run start 终端关掉，进程也会被停掉</li>
+<li>使用 npm run start &amp; 在后台运行， 终端关掉服务正常，但是不能维持稳定的服务，进程还是会挂</li>
 </ol>
-<h3 id="对于文件是否有改动分情况对应操作"><a href="#对于文件是否有改动分情况对应操作" class="headerlink" title="对于文件是否有改动分情况对应操作"></a>对于文件是否有改动分情况对应操作</h3><ul>
-<li>文件无改动输入 q 回车</li>
-<li>文件有改动 wq+回车，或者 x+回车，就快捷键按过 esc 之后直接按 shift+ZZ；</li>
-<li>有改动但是不保存，先按 ESC，再输入冒号，在输入命令时，直接输入”q!” 强制退出！</li>
+<h2 id="解决方案：pm2，查看官网详细教程"><a href="#解决方案：pm2，查看官网详细教程" class="headerlink" title="解决方案：pm2，查看官网详细教程"></a>解决方案：<a target="_blank" rel="noopener" href="https://pm2.keymetrics.io/">pm2，查看官网详细教程</a></h2><blockquote>
+<p>pm2 守护进程管理器，管理和保持应用程序在线，而且可以使用集群模式，根据可用的 CPU 数量进行缩放，这将大大提高应用程序的性能和可靠性</p>
+</blockquote>
+<h2 id="安装并使用-pm2"><a href="#安装并使用-pm2" class="headerlink" title="安装并使用 pm2"></a>安装并使用 pm2</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">npm</span> install -g pm<span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+<p>使用 pm2 启动 node 服务</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sqf">pm2 start npm -i <span class="hljs-number">0</span> --<span class="hljs-built_in">name</span> mobile --update-env --<span class="hljs-built_in">log</span>-<span class="hljs-built_in">date</span>-<span class="hljs-built_in">format</span> <span class="hljs-string">&#x27;DD-MM HH:mm:sds.SSS&#x27;</span> -- run start —watch<br></code></pre></td></tr></table></figure>
+<p>使用 curl ip + 端口 检查启动是否成功</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">curl</span> <span class="hljs-number">127.0.0.1:3000</span><br></code></pre></td></tr></table></figure>
+<p>正常启动后，浏览器 ip + 端口也可以正常访问，最后阿里云做一下域名解析，服务端 nginx 设置一下反向代理就可以使用域名访问了。</p>
+<h3 id="pm2-常用操作"><a href="#pm2-常用操作" class="headerlink" title="pm2 常用操作"></a>pm2 常用操作</h3><p>重启服务</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">pm2 researt <span class="hljs-built_in">all</span>/<span class="hljs-keyword">name</span><br></code></pre></td></tr></table></figure>
+<p>删除服务</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">pm2 <span class="hljs-keyword">delete</span> <span class="hljs-keyword">all</span>/<span class="hljs-type">name</span><br></code></pre></td></tr></table></figure>
+<p>pm2 查看实时的日志输出</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">p<span class="hljs-name">m2</span> logs<br></code></pre></td></tr></table></figure>
+<p>pm2 错误日志保存地址</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gradle">cd <span class="hljs-regexp">/root/</span>.pm2/logs<br></code></pre></td></tr></table></figure>
+<p>终端监视内存和 CPU</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">p<span class="hljs-name">m2</span> mo<span class="hljs-symbol">nit</span><br></code></pre></td></tr></table></figure>
+<p>查看列表</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gcode">p<span class="hljs-name">m2</span> list<br></code></pre></td></tr></table></figure>
+<h2 id="常用操作"><a href="#常用操作" class="headerlink" title="常用操作"></a>常用操作</h2><p>查看端口号是否被占用</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">查看3000</span> <span class="hljs-string">端口</span><br><span class="hljs-attr">Mac:</span> <span class="hljs-string">lsof</span> <span class="hljs-string">-i:3000</span><br><span class="hljs-attr">centos:</span> <span class="hljs-string">netstat</span> <span class="hljs-string">-lnp|grep</span> <span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+<p>停掉进程</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xquery">kill -<span class="hljs-number">9</span> +<span class="hljs-built_in"> id</span>  // 停掉指<span class="hljs-built_in">定id</span>的进程<br>pkill -<span class="hljs-number">9</span> +<span class="hljs-built_in"> name</span>  // 停掉指<span class="hljs-built_in">定name</span>程序的所有进程<br></code></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>直接使用 node server.js 开启服务，修改文件无法热更新，需要关闭进程重新启动</li>
+<li>开发环境可以使用 nodemon 文件修改，进程自动重启</li>
+<li>服务端使用 pm2 直接后台运行服务，不占用终端，文件修改后需要 reload</li>
 </ul>
-<h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><p>复制的命令是 y，即 yank（提起） ，常用的命令如下：<br>y 在使用 v 模式选定了某一块的时候，复制选定块到缓冲区用；<br>全部复制：按 esc 后，然后 ggyG<br>yy: 复制单行</p>
-<h2 id="剪切"><a href="#剪切" class="headerlink" title="剪切"></a>剪切</h2><p>剪切的命令是 d，即 delete，d 与 y 命令基本类似，所以两个命令用法一样，包括含有数字的用法.<br> d 剪切选定块到缓冲区；</p>
-<h2 id="粘贴"><a href="#粘贴" class="headerlink" title="粘贴"></a>粘贴</h2><p>粘贴的命令式 p，即 put（放下）<br>p 小写 p 代表贴至游标后（下），因为游标是在具体字符的位置上，所以实际是在该字符的后面</p>
-<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>dd:删除游标所在的一整行(常用)<br>ndd:n 为数字。删除光标所在的向下 n 行，例如 20dd 则是删除光标所在的向下 20 行<br>d1G:删除光标所在到第一行的所有数据<br>dG:删除光标所在到最后一行的所有数据<br>d$:删除光标所在处，到该行的最后一个字符<br>d0:那个是数字 0,删除光标所在到该行的最前面的一个字符<br>x,X:x 向后删除一个字符(相当于[del]按键),X 向前删除一个字符(相当于[backspace]即退格键)<br>nx:n 为数字，连续向后删除 n 个字符<br>全部删除：按 esc 后，然后 dG</p>
-<h2 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h2><p>在复制粘贴时，另一组常用的命令是 u（撤销操作），U（撤销某一行最近所有修改），Ctrl+R（重做），这些功能主要是 vim 中的，vi 中略有差别</p>
-<h2 id="全局替换"><a href="#全局替换" class="headerlink" title="全局替换"></a>全局替换</h2><p>如想把所有的 buyer 换成 seller</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">%s<span class="hljs-regexp">/buyer/</span>seller/g<br></code></pre></td></tr></table></figure>
-<h2 id="其他常用操作"><a href="#其他常用操作" class="headerlink" title="其他常用操作"></a>其他常用操作</h2><p>全选（高亮显示）：按 esc 后，然后 ggvG 或者 ggVG</p>
-<p>gg：是让光标移到首行，在 vim 才有效，vi 中无效<br>v ： 是进入 Visual(可视）模式<br>G ：光标移到最后一行</p>
+<p>目前对于 pm2 的使用可以满足项目需要，但是实现的还是不够优雅，需要再优化一下，后续有更好的实现也会持续更新。如果有不对的，或者各位大佬有好的实现方案，也希望可以不吝赐教（手动抱拳）</p>
 
             </div>
             <hr>
@@ -259,7 +275,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/vim/">vim</a>
+                      <a class="hover-with-bg" href="/tags/pm2/">pm2</a>
                     
                   </div>
                 
@@ -272,15 +288,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2020/11/11/autojs/">
+                      <a href="/2020/12/06/h5%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E9%85%8D%E7%BD%AE/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">连接 VS Code 电脑端进行编辑调试</span>
+                        <span class="hidden-mobile">h5微信分享配置</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2020/11/11/autojs/">
+                        <span class="hidden-mobile">连接 VS Code 电脑端进行编辑调试</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
