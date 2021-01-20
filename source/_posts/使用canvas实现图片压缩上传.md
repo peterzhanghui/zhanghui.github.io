@@ -1,7 +1,10 @@
 ---
 title: 使用canvas实现图片压缩上传
 date: 2018-10-17
-tags: canvas js
+categories: 前端开发
+tags:
+  - canvas
+  - js
 ---
 
 > 项目需求： 上传图片前对图片进行压缩减少文件体积  

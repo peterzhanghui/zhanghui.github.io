@@ -1,6 +1,7 @@
 ---
 title: pm2进行服务端部署总结
 date: 2020-11-30
+categories: 前端开发
 tags: pm2
 ---
 

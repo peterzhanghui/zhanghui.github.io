@@ -1,6 +1,7 @@
 ---
 title: 连接 VS Code 电脑端进行编辑调试
 date: 2020-11-12
+categories: 前端开发
 tags: autojs
 ---
 

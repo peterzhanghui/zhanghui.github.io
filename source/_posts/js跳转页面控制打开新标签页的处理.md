@@ -1,6 +1,7 @@
 ---
 title: js跳转页面控制打开新标签页的处理
 date: 2021-01-12 23:02:27
+categories: 前端开发
 tags: js
 ---
 
