@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>在互联网小厂做面试官的一些感悟 - 前端嘉嘉的博客</title>
+  <title>使用canvas实现图片压缩上传 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="在互联网小厂做面试官的一些感悟">
+            <span class="h2" id="subtitle" title="使用canvas实现图片压缩上传">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-13 00:00" pubdate>
-        2021年1月13日 凌晨
+      <time datetime="2018-10-17 00:00" pubdate>
+        2018年10月17日 凌晨
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      973 字
+      754 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      10
        分钟
     </span>
   
@@ -224,48 +224,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">在互联网小厂做面试官的一些感悟</h1>
+            <h1 style="display: none">使用canvas实现图片压缩上传</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>公司是一个初创公司，规模也不大，但是正常的人员流动，免不了需要筛选面试一些新的候选人，最近将近年底，涉及到年终奖的问题所以招聘很难，加上公司位置确实有点偏，不太有优势，所以造成了 boss 上很多已读未回的情况，一度怀疑招不到人，但是又总感觉下一个聊的人可能会成为未来的同事。整个过程还是有不少感触的，所以记录一下</p>
+<p>项目需求： 上传图片前对图片进行压缩减少文件体积<br>需要支持上传图片的格式 png，jpg，gif 因为 canvas 不支持 gif，所以对 gif 不做处理<br>又因为 canvas 的 bolb 方法只支持对 jpeg，和 webp 格式的文件做质量压缩，项目又需要兼容 ie，故只能保存为 jpeg 格式文件</p>
 </blockquote>
-<h2 id="招聘需求的理解"><a href="#招聘需求的理解" class="headerlink" title="招聘需求的理解"></a>招聘需求的理解</h2><blockquote>
-<p>毕竟合适的才是最好的，理清楚自己的需求也很重要，这样选择才可以更准确、更高效</p>
-</blockquote>
-<p>我理解的招聘，不需要像大厂那样面试造火箭，入职拧螺丝。我们就是业务线需要（空缺一个前端开发岗），能独立完成一个项目（当然感觉这也是一句空话）具体我大概梳理了以下几点：</p>
-<ul>
-<li>基础扎实</li>
-<li>公司目前用到的技术栈，可以熟练掌握</li>
-<li>对于平常使用的技术栈，是不是有一些深入的思考</li>
-<li>项目经验，涉及的业务场景足够丰富（pc、h5、小程序）</li>
-<li>过往的项目，对于项目整体的了解，有没有技术驱动业务的实践</li>
+<h2 id="一、上传前压缩图片的好处"><a href="#一、上传前压缩图片的好处" class="headerlink" title="一、上传前压缩图片的好处"></a>一、上传前压缩图片的好处</h2><ul>
+<li>可以减少用户的等待时间，提升使用体验，目前手机拍摄的图片文件大小一般在几 M 左右，文件直接上传时会有卡顿现象。</li>
+<li>可以减少服务端的存储空间</li>
+<li>再次回去图片资源是也可以快速的加载。虽然目前阿里云的 oss 有相对应的 api 可以通过降低图片质量等方法减少体积，不过使用 canvas 可以直接减少源文件的体积。</li>
 </ul>
-<h2 id="面试题的选择"><a href="#面试题的选择" class="headerlink" title="面试题的选择"></a>面试题的选择</h2><blockquote>
-<p>网上有很多大厂面试题，当然也可以按需参考</p>
-</blockquote>
-<p>基础知识掌握，项目经验，解决问题的能力，<br>那真正的面试过程，少问一点概念性的问题，因为感觉有标准答案在，展现不了区别，比如说闭包是什么，这种。<br>更多的换成类似，从输入 url 到页面加载的整个过程，过程中可以优化的一些点，这种发散性的问题。</p>
-<ul>
-<li><p>还有像项目中遇到的一些难点，如何解决的</p>
-</li>
-<li><p>最有成就感的一个项目</p>
-</li>
-<li><p>包括也会问最近在学习的东西聊一聊，或者平常学习/解决问题的一些方法途径。</p>
-</li>
-<li><p>当然自己最近遇到的一些问题有时候也会问，看看会不会有其他更好的思路。</p>
-</li>
-</ul>
-<p>就是更多的是通过一个聊天的方式去交流，在放松的状态下让对方发挥的更好，毕竟顺利啦大家以后都是同事。</p>
-<p>当然，真正的公司工作，技术只是一部分，软实力也很重要，沟通表达能力，自信积极的状态，或者其他优势适当的展现出来都算加分项</p>
-<h3 id="最后说一下比较忌讳的点"><a href="#最后说一下比较忌讳的点" class="headerlink" title="最后说一下比较忌讳的点"></a>最后说一下比较忌讳的点</h3><blockquote>
-<p>本身应该是共识，但是还是有不人做的不好，所以顺便提一下。</p>
-</blockquote>
-<ul>
-<li>约好的面试时间，尽量不要迟到，当然也不需要提前很早到，真有突发情况尽量提前告知，方便彼此安排时间，我认为守时是对面试最起码的尊重。</li>
-<li>面试爽约。 没有任何说明的爽约。我还遇到一个求职者约的 3 点的面试，2 点 58 分的时候告诉我说，‘提前和你说一下，今天来不了了’（手动狗头）</li>
-<li>公司产品完全不熟悉。简历海投是一种方式，但是到了面试环节，对公司的产品稍微了解一下还是很有必要的，通过公司的产品还是可以看出很多东西的，代码就在哪里看看也不多，说不定还能找到一些 bug，或者可以优化的点，是不是这些在面试的时候可以主动聊聊，感觉都是加分项。</li>
-</ul>
-<p>当然这些都是我自己的一些想法，欢迎大家有更好的想法可以一起交流。最也后祝大家可以实现薪资 double</p>
+<h2 id="二、实现思路以及示例代码"><a href="#二、实现思路以及示例代码" class="headerlink" title="二、实现思路以及示例代码"></a>二、实现思路以及示例代码</h2><ol>
+<li>使用 FileReader 对象获取本地文件（使用文件选择 input 元素）的 base64 内容</li>
+<li>使用 context.drawImage 把获取到的文件画在 canvas 上</li>
+<li>使用 canvas.toBlob 对图片做质量压缩</li>
+</ol>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 对选中的图片文件处理</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param  <span class="hljs-type">&#123;obj&#125;</span>  </span>event  图片文件</span><br><span class="hljs-comment"> * */</span><br>uploadImg (event) &#123;<br>    <span class="hljs-comment">// 为选择文件返回</span><br>    <span class="hljs-keyword">if</span> (!event.target.files[<span class="hljs-number">0</span>]) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-keyword">let</span> file = event.target.files[<span class="hljs-number">0</span>],<br>        fileName = file.name.substring(file.name.lastIndexOf(<span class="hljs-string">&quot;.&quot;</span>) + <span class="hljs-number">1</span>).toLowerCase();<br>    <span class="hljs-comment">// 文件格式校验</span><br>    <span class="hljs-keyword">if</span> (fileName != <span class="hljs-string">&quot;jpg&quot;</span> &amp;&amp; fileName != <span class="hljs-string">&quot;png&quot;</span> &amp;&amp; fileName != <span class="hljs-string">&quot;gif&quot;</span> ) &#123;<br>        <span class="hljs-built_in">this</span>.$store.commit(<span class="hljs-string">&#x27;setPrompt&#x27;</span>, &#123;<span class="hljs-attr">status</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;请选择正确的图片格式上传(jpg，png，gif)&#x27;</span>&#125;)<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <span class="hljs-comment">// gif图片格式不做处理，其他静态图片做质量压缩处理以减小图片大小</span><br>    <span class="hljs-keyword">if</span> (fileName == <span class="hljs-string">&#x27;gif&#x27;</span>) &#123;<br>        <span class="hljs-built_in">this</span>.uploadApi(file, file.name)<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">let</span> _this = <span class="hljs-built_in">this</span>;<br>        <span class="hljs-comment">// 压缩图片需要的一些元素和对象</span><br>        <span class="hljs-keyword">let</span> reader = <span class="hljs-keyword">new</span> FileReader(), img = <span class="hljs-keyword">new</span> Image();<br>        reader.readAsDataURL(file);<br>        <span class="hljs-comment">// 缩放图片需要的canvas</span><br>        <span class="hljs-keyword">let</span> canvas = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;canvas&#x27;</span>);<br>        <span class="hljs-keyword">let</span> context = canvas.getContext(<span class="hljs-string">&#x27;2d&#x27;</span>);<br>        <span class="hljs-comment">// base64地址图片加载完毕后</span><br>        img.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>            <span class="hljs-comment">// 图片原始尺寸</span><br>            <span class="hljs-keyword">let</span> originWidth = <span class="hljs-built_in">this</span>.width;<br>            <span class="hljs-keyword">let</span> originHeight = <span class="hljs-built_in">this</span>.height;<br>            canvas.width = originWidth;<br>            canvas.height = originHeight;<br>            <span class="hljs-comment">// 清除画布</span><br>            context.clearRect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, originWidth, originHeight);<br>            <span class="hljs-comment">// 图片压缩</span><br>            context.drawImage(img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, originWidth, originHeight);<br>            <span class="hljs-comment">// canvas转为blob并上传</span><br>            canvas.toBlob(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">blob</span>) </span>&#123;<br>                _this.uploadApi(blob, file.name)<br>            &#125;, file.type == <span class="hljs-string">&#x27;image/gif&#x27;</span> ? <span class="hljs-string">&#x27;image/gif&#x27;</span> : <span class="hljs-string">&quot;image/jpeg&quot;</span>, <span class="hljs-number">0.6</span>);<br>        &#125;<br>        <span class="hljs-comment">// 文件base64化，以便获知图片原始尺寸</span><br>        reader.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>&#123;<br>            img.src = e.target.result;<br>        &#125;;<br>    &#125;<br>&#125;,<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 上传选中的图片文件</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param  <span class="hljs-type">&#123;obj&#125;</span>    </span>file  图片文件</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param  <span class="hljs-type">&#123;string&#125;</span> </span>fileName  文件名称</span><br><span class="hljs-comment"> * */</span><br><span class="hljs-function"><span class="hljs-title">uploadApi</span>(<span class="hljs-params">file, fileName</span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> formData = <span class="hljs-keyword">new</span> FormData()<br>    formData.append(<span class="hljs-string">&#x27;img&#x27;</span>, file, fileName)<br>    axios.post(<span class="hljs-string">&#x27;/upload/upload-img&#x27;</span>, formData, &#123;<span class="hljs-attr">headers</span>: &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;multipart/form-data&#x27;</span>&#125;&#125;).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (res.data.code == <span class="hljs-number">200</span>) &#123;<br>            <span class="hljs-built_in">this</span>.img_list.splice(<span class="hljs-built_in">this</span>.img_list.length, <span class="hljs-number">1</span>, res.data.url)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-built_in">this</span>.$store.commit(<span class="hljs-string">&#x27;setPrompt&#x27;</span>, &#123;<span class="hljs-attr">status</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">text</span>: res.data.message&#125;)<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>感谢阅读，如有错误，欢迎指正交流。</p>
+<p>参考文档:<br><a target="_blank" rel="noopener" href="https://www.zhangxinxu.top/wordpress/2017/07/html5-canvas-image-compress-upload/">HTML5 file API 加 canvas 实现图片前端 JS 压缩并上传</a></p>
 
             </div>
             <hr>
@@ -276,7 +253,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95-%E7%94%9F%E6%B4%BB%E6%84%9F%E6%82%9F/">面试 生活感悟</a>
+                      <a class="hover-with-bg" href="/tags/canvas-js/">canvas js</a>
                     
                   </div>
                 
@@ -289,9 +266,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/20/github%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%8A%A0%E8%BD%BD%E5%A4%B1%E8%B4%A5/">
+                      <a href="/2020/11/11/autojs/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">github 网站使用问题及解决方法总结</span>
+                        <span class="hidden-mobile">连接 VS Code 电脑端进行编辑调试</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -299,8 +276,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/12/vuejs%E8%BF%87%E6%BB%A4%E5%99%A8/">
-                        <span class="hidden-mobile">vuejs过滤器</span>
+                      <a href="/2017/10/15/vim/">
+                        <span class="hidden-mobile">vim 常用操作</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
