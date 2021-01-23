@@ -1,6 +1,6 @@
 ---
 title: github 网站使用问题及解决方法总结
-date: { { data } }
+date: 2020-11-17
 tags: 环境配置
 ---
 
