@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>统计html中出现最多的标签</title>
+    <link href="/2021/01/27/%E7%BB%9F%E8%AE%A1html%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/"/>
+    <url>/2021/01/27/%E7%BB%9F%E8%AE%A1html%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%9C%80%E5%A4%9A%E7%9A%84%E6%A0%87%E7%AD%BE/</url>
+    
+    <content type="html"><![CDATA[<h3 id="查找当前页面中出现最多的-html-标签"><a href="#查找当前页面中出现最多的-html-标签" class="headerlink" title="查找当前页面中出现最多的 html 标签"></a>查找当前页面中出现最多的 html 标签</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> maxBy = <span class="hljs-function">(<span class="hljs-params">list, keyBy</span>) =&gt;</span> list.reduce(<span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> keyBy(x) &gt; keyBy(y) ? x : y)<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getFrequentTag</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> tags = [...document.querySelectorAll(<span class="hljs-string">&#x27;*&#x27;</span>)].map(<span class="hljs-function"><span class="hljs-params">x</span> =&gt;</span> x.tagName).reduce(<span class="hljs-function">(<span class="hljs-params">o, tag</span>) =&gt;</span> &#123;<br>    o[tag] = o[tag] ? o[tag] + <span class="hljs-number">1</span> : <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">return</span> o<br>  &#125;, &#123;&#125;)<br>  <span class="hljs-keyword">return</span> maxBy(<span class="hljs-built_in">Object</span>.entries(tags), <span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> tag[<span class="hljs-number">1</span>])<br>&#125;<br><br></code></pre></td></tr></table></figure><p>转载文章：<br>(原文连接)[<a href="https://juejin.cn/post/6922229465468633095]">https://juejin.cn/post/6922229465468633095]</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>面试题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>js</tag>
+      
+      <tag>面试</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>快速排序</title>
     <link href="/2021/01/25/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/"/>
     <url>/2021/01/25/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</url>
