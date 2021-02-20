@@ -34,3 +34,9 @@ tsc --init
 ### b、在 vsCode 中配置
 
 终端 -> Run Task -> typescript -> tsc: watch - tsconfig.json
+
+### c、直接在命令行监听修改，自动更新
+
+```
+tsc -w
+```
