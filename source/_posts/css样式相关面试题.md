@@ -70,6 +70,41 @@ date: 2021-02-26 16:43:26
 }
 ```
 
+## 用纯 CSS 创建一个三角形？
+
+```
+/*
+  采用的是相邻边框链接处的均分原理
+  将元素的宽高设为0，只设置 border ,
+  将任意三条边隐藏掉（颜色设为 transparent ）,剩下的就是一个三角形
+ */
+#demo{
+  width: 0;
+  height: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+}
+
+```
+
+## 清除浮动
+
+```
+.clearfix {
+  zoom: 1;
+}
+.clearfix:after {
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+  content: ".";
+}
+
+```
+
 ## flex 弹性布局
 
 1. 设置盒子的 display 属性为 flex，或者 line-flex，其对应还有六个 css 属性，分别为：
@@ -101,3 +136,41 @@ date: 2021-02-26 16:43:26
 6）align-self：设置子元素自己的垂直排列方式，默认为盒子的 align-items 的值
 
 :warning:：设置 flex 布局后，子元素的 float，clear，vertical-align 都无效
+
+## CSS3 新增属性用法的整理：
+
+1、box-shadow（阴影效果）
+
+2、border-color（为边框设置多种颜色）
+
+3、border-image（图片边框）
+
+4、text-shadow（文本阴影）
+
+5、text-overflow（文本截断）
+
+6、word-wrap（自动换行）
+
+7、border-radius（圆角边框）
+
+8、opacity（透明度）
+
+9、box-sizing（控制盒模型的组成模式）
+
+10、resize（元素缩放）
+
+11、outline（外边框）
+
+12、background-size（指定背景图片尺寸）
+
+13、background-origin（指定背景图片从哪里开始显示）
+
+14、background-clip（指定背景图片从什么位置开始裁剪）
+
+15、background（为一个元素指定多个背景）
+
+16、hsl（通过色调、饱和度、亮度来指定颜色颜色值）
+
+17、hsla（在 hsl 的基础上增加透明度设置）
+
+18、rgba（基于 rgb 设置颜色，a 设置透明度）
