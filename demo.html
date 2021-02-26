@@ -223,12 +223,23 @@ vertical-align: middle;
             margin: 0 auto;
             background: forestgreen;
         }
+        /* 
+  采用的是相邻边框链接处的均分原理
+  将元素的宽高设为0，只设置 border ,
+  将任意三条边隐藏掉（颜色设为 transparent ）,剩下的就是一个三角形
+ */
+#demo{
+  width: 0;
+  height: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparent transparent red transparent;
+}
     </style>
 </head>
 <body>
-    <div class="outside">
-        <div class="inside">这个是哪哦那天弄个萨古拉感觉</div>
-    </div>
+   <div id="demo"></div>
+    
 </body>
 </html>
 </div>
