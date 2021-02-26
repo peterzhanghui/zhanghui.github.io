@@ -27,6 +27,49 @@ date: 2021-02-26 16:43:26
 }
 ```
 
+宽高和背景色属性下面实现中省略
+
+2. position 定位 + maring(子元素高度确定) / transform（子元素高度不确定）
+
+```
+.outside{
+    width: 600px;
+    height: 400px;
+    padding: 30px;
+    background: goldenrod;
+    position: relative;
+}
+.inside{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -50px 0 0 -50px;
+    /* transform:translate(-50%,-50%); */
+    background: forestgreen;
+}
+```
+
+3. display：table-cell，vertical-align：middle;
+
+```
+.outside{
+    width: 600px;
+    height: 400px;
+    padding: 30px;
+    background: goldenrod;
+    display:table-cell;
+    vertical-align:middle;
+}
+.inside{
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    background: forestgreen;
+}
+```
+
 ## flex 弹性布局
 
 1. 设置盒子的 display 属性为 flex，或者 line-flex，其对应还有六个 css 属性，分别为：
