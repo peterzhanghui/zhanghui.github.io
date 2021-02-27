@@ -193,52 +193,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-       /* .outside{
-            width: 600px;
-            height: 400px;
-            padding: 30px;
-            background: goldenrod;
+      
+    
+        .content{
+            height: 100%;
             display: flex;
+            justify-content: space-between;
         }
-        .inside{
-            width: 100px;
-            height: 100px;
-            background: forestgreen;
-            flex-direction: column;
-            justify-content: center;
-        } */
-        .outside{
-            width: 600px;
-            height: 400px;
-            padding: 30px;
+      
+        .center{
+            flex: 1;
+            min-height: 400px;
             background: goldenrod;
-display: table-cell;
-vertical-align: middle;            
         }
-        .inside{
-            width: 100px;
-            height: 100px;
-            
-            /* text-align: center; */
-            margin: 0 auto;
+        .left, .right{
+            /* width: 100px;
+            height: 100px; */
+            flex: 0 0 200px;
             background: forestgreen;
         }
-        /* 
-  采用的是相邻边框链接处的均分原理
-  将元素的宽高设为0，只设置 border ,
-  将任意三条边隐藏掉（颜色设为 transparent ）,剩下的就是一个三角形
- */
-#demo{
-  width: 0;
-  height: 0;
-  border-width: 20px;
-  border-style: solid;
-  border-color: transparent transparent red transparent;
-}
+        
+
     </style>
 </head>
 <body>
-   <div id="demo"></div>
+    <div class="content">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right"></div>
+    </div>
+   
     
 </body>
 </html>
