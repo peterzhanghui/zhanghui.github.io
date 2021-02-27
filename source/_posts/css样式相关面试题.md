@@ -90,6 +90,10 @@ date: 2021-02-26 16:43:26
 
 ## 清除浮动
 
+> 当不给父元素设置宽高时，父元素的宽高会被子元素的内容撑开。但当子元素设置浮动属性（float） 后，子元素会溢出到父元素外，父元素的宽高也不会被撑开，这称之为“高度塌陷”。可以理解为使用浮动后的副作用，解决方法大体有以下两种
+
+1.  子元素添加 clear 属性
+
 ```
 .clearfix {
   zoom: 1;
@@ -104,6 +108,120 @@ date: 2021-02-26 16:43:26
 }
 
 ```
+
+2. 父元素添加 overflow: hiden;触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素
+
+第二种虽然代码量小，但是超出尺寸的内容会被隐藏（不推荐）目前主流的做法是使用第一种
+
+## 盒模型
+
+- 标准盒模型 (box-sizing: content-box;) 宽高大小不包含 padding,border
+- IE 盒模型 （box-sizing: border-box;）宽高大小包含 padding,border
+  目前采用最多的是 ie 盒模型，设置宽高包含这个元素尺寸，不需要在计算
+
+- flex 布局
+- 多列布局 (column-count: 3;容器分三列布局)
+- 网格布局 （grid）
+
+## 经典布局方案
+
+左右固定，中间自适应
+
+- 圣杯布局
+
+```
+.clearfix{
+        zoom: 1;
+    }
+    .clearfix::after{
+        clear: both;
+        content: '.';
+        visibility: hidden;
+        display: block;
+        overflow: hidden;
+        height: 0;
+    }
+    .content{
+        overflow: hidden;
+        height: 100%;
+        padding: 0 100px;
+    }
+    .center,.left, .right{
+        float: left;
+    }
+    .center{
+        width: 100%;
+        min-height: 400px;
+        background: goldenrod;
+    }
+    .left, .right{
+        width: 100px;
+        height: 100px;
+        background: forestgreen;
+    }
+    .left{
+        margin-left: -100%;
+        position: relative;
+        left: -100px;
+    }
+    .right{
+        margin-right: -100px;
+    }
+        <div class="content ">
+       <div class="center"></div>
+       <div class="left"></div>
+       <div class="right"></div>
+   </div>
+```
+
+- 双飞翼布局
+  和圣杯布局不同的就是 left，right 和 center 不在同一个父级元素下
+
+  ```
+  <div class="clearfix">
+        <div class="content ">
+            <div class="center"></div>
+        </div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+     .clearfix{
+            zoom: 1;
+        }
+        .clearfix::after{
+            clear: both;
+            content: '.';
+            visibility: hidden;
+            display: block;
+            overflow: hidden;
+            height: 0;
+        }
+        .content{
+            width: 100%;
+            height: 100%;
+        }
+        .content,.left, .right{
+            float: left;
+        }
+        .center{
+            margin: 0 100px 0 100px;
+            min-height: 400px;
+            background: goldenrod;
+        }
+        .left, .right{
+            width: 100px;
+            height: 100px;
+            background: forestgreen;
+        }
+        .left{
+            margin-left: -100%;
+        }
+        .right{
+            margin-left: -100px;
+        }
+  ```
+
+  - 使用 flex 布局
 
 ## flex 弹性布局
 
@@ -174,3 +292,9 @@ date: 2021-02-26 16:43:26
 17、hsla（在 hsl 的基础上增加透明度设置）
 
 18、rgba（基于 rgb 设置颜色，a 设置透明度）
+
+## 移动端响应式布局开发的方案
+
+- media
+- rem
+- vh / vw 类似百分比布局
