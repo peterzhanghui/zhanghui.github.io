@@ -28,6 +28,32 @@ function debounce(fn, wait) {
  debounce(submit, 1000)
 ```
 
+上面的方法有一个第一次等待时间，需要优化一下
+
+```
+  function debounce(callback, wait = 3000, immediate) {
+    var timeout,result
+    return function () {
+      var context = this;
+      var args = arguments;
+
+      if (timeout) clearTimeout(timeout);
+      if (immediate) {
+        // 判断是否执行过
+        var flag = !timeout;
+        timeout = setTimeout(function () {
+            callback.apply(context, args);
+        }, wait);
+        if (flag) callback.apply(context, args);
+      } else {
+        timeout = setTimeout(function () {
+          callback.apply(context, args);
+        }, wait);
+      }
+    };
+  }
+```
+
 ### 方案三：可以添加 loading 动画
 
 如果涉及 http 请求，可以等 http 响应开始添加 loading 动画，完成后关闭。
