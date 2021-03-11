@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      204 字
+      293 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      3
        分钟
     </span>
   
@@ -232,6 +232,8 @@
 </blockquote>
 <h3 id="解决方案一：-表单按钮修改-disabled-属性，-或者在-js-事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开"><a href="#解决方案一：-表单按钮修改-disabled-属性，-或者在-js-事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开" class="headerlink" title="解决方案一： 表单按钮修改 disabled 属性， 或者在 js 事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开"></a>解决方案一： 表单按钮修改 disabled 属性， 或者在 js 事件中设置标签判断。简单粗暴，不够优雅，每个事件里都要加重复的逻辑，没有分离开</h3><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">this.disabled</span> = <span class="hljs-literal">true</span><span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
 <h3 id="方案二：使用函数防抖（自定义，或者直接使用-lodash-的-debounce-方法）"><a href="#方案二：使用函数防抖（自定义，或者直接使用-lodash-的-debounce-方法）" class="headerlink" title="方案二：使用函数防抖（自定义，或者直接使用 lodash 的 debounce 方法）"></a>方案二：使用函数防抖（自定义，或者直接使用 lodash 的 debounce 方法）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 防抖</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">fn, wait</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> timeout = <span class="hljs-literal">null</span>;<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (timeout !== <span class="hljs-literal">null</span>) <span class="hljs-built_in">clearTimeout</span>(timeout);<br>    timeout = <span class="hljs-built_in">setTimeout</span>(fn, wait);<br>  &#125;;<br>&#125;<br> <span class="hljs-comment">// 绑定的按钮点击事件调用防抖方法</span><br> debounce(submit, <span class="hljs-number">1000</span>)<br></code></pre></td></tr></table></figure>
+<p>上面的方法有一个第一次等待时间，需要优化一下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">debounce</span>(<span class="hljs-params">callback, wait = <span class="hljs-number">3000</span>, immediate</span>) </span>&#123;<br>  <span class="hljs-keyword">var</span> timeout,result<br>  <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> context = <span class="hljs-built_in">this</span>;<br>    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">arguments</span>;<br><br>    <span class="hljs-keyword">if</span> (timeout) <span class="hljs-built_in">clearTimeout</span>(timeout);<br>    <span class="hljs-keyword">if</span> (immediate) &#123;<br>      <span class="hljs-comment">// 判断是否执行过</span><br>      <span class="hljs-keyword">var</span> flag = !timeout;<br>      timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>          callback.apply(context, args);<br>      &#125;, wait);<br>      <span class="hljs-keyword">if</span> (flag) callback.apply(context, args);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      timeout = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        callback.apply(context, args);<br>      &#125;, wait);<br>    &#125;<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="方案三：可以添加-loading-动画"><a href="#方案三：可以添加-loading-动画" class="headerlink" title="方案三：可以添加 loading 动画"></a>方案三：可以添加 loading 动画</h3><p>如果涉及 http 请求，可以等 http 响应开始添加 loading 动画，完成后关闭。</p>
 
             </div>
