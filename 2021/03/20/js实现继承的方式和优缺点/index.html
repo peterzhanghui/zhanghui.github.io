@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>typeScript文件保存时自动编译 - 前端嘉嘉的博客</title>
+  <title>js实现继承的方式和优缺点 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="typeScript文件保存时自动编译">
+            <span class="h2" id="subtitle" title="js实现继承的方式和优缺点">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-14 15:04" pubdate>
-        2021年2月14日 下午
+      <time datetime="2021-03-20 21:33" pubdate>
+        2021年3月20日 晚上
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      159 字
+      399 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      5
        分钟
     </span>
   
@@ -224,19 +224,27 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">typeScript文件保存时自动编译</h1>
+            <h1 style="display: none">js实现继承的方式和优缺点</h1>
             
             <div class="markdown-body">
-              <blockquote>
-<p>typeScript 文件保存时自动编译，官网教程中的 提到的 vsCode 插件 atom-typescript，在 vsCode 中搜索没找到。</p>
-</blockquote>
-<h2 id="1、全局安装-typeScript"><a href="#1、全局安装-typeScript" class="headerlink" title="1、全局安装 typeScript"></a>1、全局安装 typeScript</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> -g typescript<br></code></pre></td></tr></table></figure>
-<h2 id="2、手动编译"><a href="#2、手动编译" class="headerlink" title="2、手动编译"></a>2、手动编译</h2><p>创建完成 ts 文件后运行 tsc test.ts，会在当前目录下生成同名的 js 文件。</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">tsc <span class="hljs-keyword">test</span>.ts<br></code></pre></td></tr></table></figure>
-<h2 id="3、自动编译"><a href="#3、自动编译" class="headerlink" title="3、自动编译"></a>3、自动编译</h2><h3 id="a、生成配置-ts-文件"><a href="#a、生成配置-ts-文件" class="headerlink" title="a、生成配置 ts 文件"></a>a、生成配置 ts 文件</h3><p>在项目根目录生成 tsconfig.json 文件，可以修改相关 ts 配置，设置编译后的 js 文件目录</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">tsc --<span class="hljs-keyword">init</span><br></code></pre></td></tr></table></figure>
-<h3 id="b、在-vsCode-中配置"><a href="#b、在-vsCode-中配置" class="headerlink" title="b、在 vsCode 中配置"></a>b、在 vsCode 中配置</h3><p>终端 -&gt; Run Task -&gt; typescript -&gt; tsc: watch - tsconfig.json</p>
-<h3 id="c、直接在命令行监听修改，自动更新"><a href="#c、直接在命令行监听修改，自动更新" class="headerlink" title="c、直接在命令行监听修改，自动更新"></a>c、直接在命令行监听修改，自动更新</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">tsc -w</span><br></code></pre></td></tr></table></figure>
+              <h2 id="一、-原型继承"><a href="#一、-原型继承" class="headerlink" title="一、 原型继承"></a>一、 原型继承</h2><p>实现的核心代码：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Child</span>.</span></span>prototype = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Parent()</span>;<br><br>var child1 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Child()</span>;<br></code></pre></td></tr></table></figure>
+<p>缺点：1、引用类型的属性被所有实例共享 2、创建实例时不能想 parent 传参</p>
+<h2 id="二、构造函数继承"><a href="#二、构造函数继承" class="headerlink" title="二、构造函数继承"></a>二、构造函数继承</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.names = [<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;daisy&#x27;</span>];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"></span>) </span>&#123;<br>    Parent.call(<span class="hljs-built_in">this</span>);<br>&#125;<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child();<br><br></code></pre></td></tr></table></figure>
+<p>优点：</p>
+<p>1.避免了引用类型的属性被所有实例共享</p>
+<p>2.可以在 Child 中向 Parent 传参</p>
+<p>缺点：</p>
+<p>方法都在构造函数中定义，每次创建实例都会创建一遍方法。</p>
+<h2 id="三、组合继承"><a href="#三、组合继承" class="headerlink" title="三、组合继承"></a>三、组合继承</h2><p>结合原型继承和构造函数继承</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-keyword">this</span>.name = name;<br>    <span class="hljs-keyword">this</span>.colors = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>];<br>&#125;<br><br>Parent.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br><br>    Parent.call(<span class="hljs-keyword">this</span>, name);<br><br>    <span class="hljs-keyword">this</span>.age = age;<br><br>&#125;<br><br>Child.prototype = <span class="hljs-keyword">new</span> Parent();<br>Child.prototype.constructor = Child;<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child(<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;18&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>缺点：会调用两次父构造函数</p>
+<h2 id="四、寄生式继承"><a href="#四、寄生式继承" class="headerlink" title="四、寄生式继承"></a>四、寄生式继承</h2><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createObj</span> (<span class="hljs-params">o</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> clone = <span class="hljs-built_in">Object</span>.create(o);<br>    clone.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hi&#x27;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> clone;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>缺点：跟借用构造函数模式一样，每次创建对象都会创建一遍方法。</p>
+<h2 id="五、寄生组合式继承"><a href="#五、寄生组合式继承" class="headerlink" title="五、寄生组合式继承"></a>五、寄生组合式继承</h2><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-keyword">this</span>.name = name;<br>    <span class="hljs-keyword">this</span>.colors = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>];<br>&#125;<br><br>Parent.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br>    Parent.call(<span class="hljs-keyword">this</span>, name);<br>    <span class="hljs-keyword">this</span>.age = age;<br>&#125;<br><br><span class="hljs-comment">// 关键的三步</span><br><span class="hljs-keyword">var</span> F = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;;<br><br>F.prototype = Parent.prototype;<br><br>Child.prototype = <span class="hljs-keyword">new</span> F();<br><br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child(<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;18&#x27;</span>);<br><br></code></pre></td></tr></table></figure>
+<p>最佳的继承实现 能够正常使用 instanceof 和 isPrototypeOf</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>ES6 中的 extends 继承就是类似寄生组合式继承的实现方式</p>
+
             </div>
             <hr>
             <div>
@@ -253,7 +261,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/typeScript/">typeScript</a>
+                      <a class="hover-with-bg" href="/tags/js/">js</a>
                     
                   </div>
                 
@@ -266,18 +274,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/20/js%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">js实现继承的方式和优缺点</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/13/%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D/">
-                        <span class="hidden-mobile">深浅拷贝</span>
+                      <a href="/2021/02/14/typeScript%E8%87%AA%E5%8A%A8%E7%BC%96%E8%AF%91/">
+                        <span class="hidden-mobile">typeScript文件保存时自动编译</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
