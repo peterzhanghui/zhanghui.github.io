@@ -15,7 +15,10 @@ Child.prototype = new Parent();
 var child1 = new Child();
 ```
 
-缺点：1、引用类型的属性被所有实例共享 2、创建实例时不能想 parent 传参
+缺点：
+
+1. 引用类型的属性被所有实例共享
+2. 创建实例时不能向 parent 传参
 
 ## 二、构造函数继承
 
@@ -34,13 +37,14 @@ var child1 = new Child();
 
 优点：
 
-1.避免了引用类型的属性被所有实例共享
+1. 避免了引用类型的属性被所有实例共享
 
-2.可以在 Child 中向 Parent 传参
+2. 可以在 Child 中向 Parent 传参
 
 缺点：
 
-方法都在构造函数中定义，每次创建实例都会创建一遍方法。
+1. 方法都在构造函数中定义，每次创建实例都会创建一遍方法。
+2. 只能继承父类私有方法和属性，原型链中的无法继承。
 
 ## 三、组合继承
 
@@ -70,7 +74,7 @@ Child.prototype.constructor = Child;
 var child1 = new Child('kevin', '18');
 ```
 
-缺点：会调用两次父构造函数
+缺点：会调用两次父构造函数，在 call()方法和 Child.prototype = new Parent()两次都调用了父级的构造函数，造成了不必要的性能浪费
 
 ## 四、寄生式继承
 
@@ -119,5 +123,18 @@ var child1 = new Child('kevin', '18');
 最佳的继承实现 能够正常使用 instanceof 和 isPrototypeOf
 
 ## 总结：
+
+### instanceof
+
+child instanceof Parent
+
+运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
+
+### isPrototypeOf
+
+用于测试一个对象(Parent)是否存在于另一个对象(child)的原型链上
+Parent.prototype.isPrototypeOf(child)
+
+### ES6 中的 extends
 
 ES6 中的 extends 继承就是类似寄生组合式继承的实现方式
