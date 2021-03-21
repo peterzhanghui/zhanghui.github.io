@@ -1,7 +1,9 @@
 ---
 title: js实现继承的方式和优缺点
 categories: 前端开发
-tags: js
+tags:
+  - js
+  - 面试题
 date: 2021-03-20 21:33:25
 ---
 
