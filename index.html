@@ -192,8 +192,12 @@
           
           一、 原型继承实现的核心代码：
 123Child.prototype = new Parent();var child1 = new Child();
-缺点：1、引用类型的属性被所有实例共享 2、创建实例时不能想 parent 传参
-二、构造函数继承12345678910function Parent () &#123;    this.names = [&#x27;kevin&#x27;, &#
+缺点：
+
+引用类型的属性被所有实例共享
+创建实例时不能向 parent 传参
+
+二、构造函数继承12345678910function Parent () &#123;    this.names = [&#x27;kevin&#x27;, &#x
         </a>
       </p>
 

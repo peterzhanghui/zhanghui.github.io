@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      399 字
+      517 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      7
        分钟
     </span>
   
@@ -229,21 +229,35 @@
             <div class="markdown-body">
               <h2 id="一、-原型继承"><a href="#一、-原型继承" class="headerlink" title="一、 原型继承"></a>一、 原型继承</h2><p>实现的核心代码：</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Child</span>.</span></span>prototype = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Parent()</span>;<br><br>var child1 = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Child()</span>;<br></code></pre></td></tr></table></figure>
-<p>缺点：1、引用类型的属性被所有实例共享 2、创建实例时不能想 parent 传参</p>
+<p>缺点：</p>
+<ol>
+<li>引用类型的属性被所有实例共享</li>
+<li>创建实例时不能向 parent 传参</li>
+</ol>
 <h2 id="二、构造函数继承"><a href="#二、构造函数继承" class="headerlink" title="二、构造函数继承"></a>二、构造函数继承</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.names = [<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;daisy&#x27;</span>];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"></span>) </span>&#123;<br>    Parent.call(<span class="hljs-built_in">this</span>);<br>&#125;<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child();<br><br></code></pre></td></tr></table></figure>
 <p>优点：</p>
-<p>1.避免了引用类型的属性被所有实例共享</p>
-<p>2.可以在 Child 中向 Parent 传参</p>
+<ol>
+<li><p>避免了引用类型的属性被所有实例共享</p>
+</li>
+<li><p>可以在 Child 中向 Parent 传参</p>
+</li>
+</ol>
 <p>缺点：</p>
-<p>方法都在构造函数中定义，每次创建实例都会创建一遍方法。</p>
+<ol>
+<li>方法都在构造函数中定义，每次创建实例都会创建一遍方法。</li>
+<li>只能继承父类私有方法和属性，原型链中的无法继承。</li>
+</ol>
 <h2 id="三、组合继承"><a href="#三、组合继承" class="headerlink" title="三、组合继承"></a>三、组合继承</h2><p>结合原型继承和构造函数继承</p>
 <figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-keyword">this</span>.name = name;<br>    <span class="hljs-keyword">this</span>.colors = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>];<br>&#125;<br><br>Parent.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br><br>    Parent.call(<span class="hljs-keyword">this</span>, name);<br><br>    <span class="hljs-keyword">this</span>.age = age;<br><br>&#125;<br><br>Child.prototype = <span class="hljs-keyword">new</span> Parent();<br>Child.prototype.constructor = Child;<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child(<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;18&#x27;</span>);<br></code></pre></td></tr></table></figure>
-<p>缺点：会调用两次父构造函数</p>
+<p>缺点：会调用两次父构造函数，在 call()方法和 Child.prototype = new Parent()两次都调用了父级的构造函数，造成了不必要的性能浪费</p>
 <h2 id="四、寄生式继承"><a href="#四、寄生式继承" class="headerlink" title="四、寄生式继承"></a>四、寄生式继承</h2><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createObj</span> (<span class="hljs-params">o</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> clone = <span class="hljs-built_in">Object</span>.create(o);<br>    clone.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hi&#x27;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> clone;<br>&#125;<br><br></code></pre></td></tr></table></figure>
 <p>缺点：跟借用构造函数模式一样，每次创建对象都会创建一遍方法。</p>
 <h2 id="五、寄生组合式继承"><a href="#五、寄生组合式继承" class="headerlink" title="五、寄生组合式继承"></a>五、寄生组合式继承</h2><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-keyword">this</span>.name = name;<br>    <span class="hljs-keyword">this</span>.colors = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>];<br>&#125;<br><br>Parent.prototype.getName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.name)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params">name, age</span>) </span>&#123;<br>    Parent.call(<span class="hljs-keyword">this</span>, name);<br>    <span class="hljs-keyword">this</span>.age = age;<br>&#125;<br><br><span class="hljs-comment">// 关键的三步</span><br><span class="hljs-keyword">var</span> F = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;;<br><br>F.prototype = Parent.prototype;<br><br>Child.prototype = <span class="hljs-keyword">new</span> F();<br><br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child(<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;18&#x27;</span>);<br><br></code></pre></td></tr></table></figure>
 <p>最佳的继承实现 能够正常使用 instanceof 和 isPrototypeOf</p>
-<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p>ES6 中的 extends 继承就是类似寄生组合式继承的实现方式</p>
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><p>child instanceof Parent</p>
+<p>运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上</p>
+<h3 id="isPrototypeOf-NaN"><a href="#isPrototypeOf-NaN" class="headerlink" title="isPrototypeOf"></a>isPrototypeOf</h3><p>用于测试一个对象(Parent)是否存在于另一个对象(child)的原型链上<br>Parent.prototype.isPrototypeOf(child)</p>
+<h3 id="ES6-中的-extends"><a href="#ES6-中的-extends" class="headerlink" title="ES6 中的 extends"></a>ES6 中的 extends</h3><p>ES6 中的 extends 继承就是类似寄生组合式继承的实现方式</p>
 
             </div>
             <hr>
