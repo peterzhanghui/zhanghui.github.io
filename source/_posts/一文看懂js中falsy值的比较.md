@@ -35,9 +35,9 @@ for (let i =0 ; i < falsyArr.length; i ++) {
 
 根据输出结果可以得到以下结论：
 
-1. [] 对比时会转化为空字符串 '' （不知道是不是调用 toString() 方法）
-2. {} 对比会转化为 '[object Object]'
+1. [] 对比时会转化为空字符串 ''
+2. {} 对比会转化为 '[object Object]' ([JavaScript 对象转换到基本类型值算法 ToPrimitive](https://juejin.cn/post/6844903555548053511))
 3. NaN, {} 和任何值比较都为 false
-4. null 和 undefined 除了等于 null == undefined 其他都是 false
+4. null 和 undefined 除了 null == undefined 为 true 其他都是 false （js 规范中提到，在比较相等性之前不能将 null 和 undefined 转化为其他值，并且规定两者相等，都表示无效的值）
 5. '' 和 [],表现一致，和数字和 false 比较都会转化为数字 0，结果为 true，其他为 false
 6. NaN 不管是不是全等和自身相比都为 false
