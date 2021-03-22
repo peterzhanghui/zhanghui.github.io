@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      307 字
+      351 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -235,10 +235,10 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/img/%E5%AF%B9%E6%AF%94%E6%B5%81%E7%A8%8B%E5%9B%BE.webp" srcset="/img/loading.gif" alt="图片来自掘金小册-前端面试之道"></p>
 <p>根据输出结果可以得到以下结论：</p>
 <ol>
-<li>[] 对比时会转化为空字符串 ‘’ （不知道是不是调用 toString() 方法）</li>
-<li>{} 对比会转化为 ‘[object Object]’</li>
+<li>[] 对比时会转化为空字符串 ‘’</li>
+<li>{} 对比会转化为 ‘[object Object]’ (<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903555548053511">JavaScript 对象转换到基本类型值算法 ToPrimitive</a>)</li>
 <li>NaN, {} 和任何值比较都为 false</li>
-<li>null 和 undefined 除了等于 null == undefined 其他都是 false</li>
+<li>null 和 undefined 除了 null == undefined 为 true 其他都是 false （js 规范中提到，在比较相等性之前不能将 null 和 undefined 转化为其他值，并且规定两者相等，都表示无效的值）</li>
 <li>‘’ 和 [],表现一致，和数字和 false 比较都会转化为数字 0，结果为 true，其他为 false</li>
 <li>NaN 不管是不是全等和自身相比都为 false</li>
 </ol>
