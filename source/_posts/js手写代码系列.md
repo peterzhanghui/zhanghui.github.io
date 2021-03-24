@@ -1,0 +1,77 @@
+---
+title: js手写代码系列
+categories: 前端开发
+tags:
+  - js
+  - 面试题
+date: 2021-03-24 11:20:11
+---
+
+> js 中常用的一些方法的代码实现
+
+## new 操作
+
+引用 MDN 上的相关描述：new 关键字会进行如下的操作：
+
+创建一个空的简单 JavaScript 对象（即{}）；
+链接该对象（设置该对象的 constructor）到另一个对象 ；
+将步骤 1 新创建的对象作为 this 的上下文 ；
+如果该函数没有返回对象，则返回 this。
+
+```
+// construct: 构造函数
+function newFunction() {
+  // 通过Object.create创建一个空对象；
+  var res = Object.create(null);
+  // 获取第一个构造函数参数
+  var construct = Array.prototype.shift.call(arguments);
+  res.__proto__ = construct.prototype;
+  // 使用apply执行构造函数，将构造函数的属性挂载在res上面
+  var conRes = construct.apply(res, arguments);
+  // 判断返回类型
+  return conRes instanceof Object ? conRes : res;
+}
+
+```
+
+## bind
+
+```
+function.prototype.bind = function(context) {
+      if (typeof this !== "function") {
+        throw new TypeError("not a function");
+      }
+      let self = this;
+      let args = [...arguments].slice(1);
+      function Fn() {}
+      Fn.prototype = this.prototype;
+      let bound = function () {
+        let res = [...args, ...arguments]; //bind传递的参数和函数调用时传递的参数拼接
+        context = this instanceof Fn ? this : context || this;
+        return self.apply(context, res);
+      }; //原型链
+      bound.prototype = new Fn();
+      return bound;
+    }
+
+```
+
+## Object.create
+
+方法创建一个新对象，使用现有的对象来提供新创建的对象的**proto**
+
+```
+function(obj){
+   let oo = {};
+   oo.__proto__ = obj;
+    return oo;
+}
+因为__proto__从web标准中删除，所以第二种更好
+
+funciton(obj){
+    function Fn(){}
+    Fn.prototype = obj;
+    return new Fn()
+}
+
+```

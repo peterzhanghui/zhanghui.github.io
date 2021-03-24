@@ -24,6 +24,8 @@ var child1 = new Child();
 
 ## 二、构造函数继承
 
+在子类构造函数中调用父类的构造函数，相当于在新对象上，运行了父类的所有初始化代码
+
 ```
 function Parent () {
     this.names = ['kevin', 'daisy'];
@@ -40,7 +42,6 @@ var child1 = new Child();
 优点：
 
 1. 避免了引用类型的属性被所有实例共享
-
 2. 可以在 Child 中向 Parent 传参
 
 缺点：
