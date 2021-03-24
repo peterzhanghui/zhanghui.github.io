@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      517 字
+      555 字
     </span>
   
 
@@ -234,13 +234,12 @@
 <li>引用类型的属性被所有实例共享</li>
 <li>创建实例时不能向 parent 传参</li>
 </ol>
-<h2 id="二、构造函数继承"><a href="#二、构造函数继承" class="headerlink" title="二、构造函数继承"></a>二、构造函数继承</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.names = [<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;daisy&#x27;</span>];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"></span>) </span>&#123;<br>    Parent.call(<span class="hljs-built_in">this</span>);<br>&#125;<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child();<br><br></code></pre></td></tr></table></figure>
+<h2 id="二、构造函数继承"><a href="#二、构造函数继承" class="headerlink" title="二、构造函数继承"></a>二、构造函数继承</h2><p>在子类构造函数中调用父类的构造函数，相当于在新对象上，运行了父类的所有初始化代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Parent</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.names = [<span class="hljs-string">&#x27;kevin&#x27;</span>, <span class="hljs-string">&#x27;daisy&#x27;</span>];<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Child</span> (<span class="hljs-params"></span>) </span>&#123;<br>    Parent.call(<span class="hljs-built_in">this</span>);<br>&#125;<br><br><span class="hljs-keyword">var</span> child1 = <span class="hljs-keyword">new</span> Child();<br><br></code></pre></td></tr></table></figure>
 <p>优点：</p>
 <ol>
-<li><p>避免了引用类型的属性被所有实例共享</p>
-</li>
-<li><p>可以在 Child 中向 Parent 传参</p>
-</li>
+<li>避免了引用类型的属性被所有实例共享</li>
+<li>可以在 Child 中向 Parent 传参</li>
 </ol>
 <p>缺点：</p>
 <ol>

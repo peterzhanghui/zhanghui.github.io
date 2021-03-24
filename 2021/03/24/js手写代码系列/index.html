@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>一文看懂js中falsy值的比较 - 前端嘉嘉的博客</title>
+  <title>js手写代码系列 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="一文看懂js中falsy值的比较">
+            <span class="h2" id="subtitle" title="js手写代码系列">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-21 14:49" pubdate>
-        2021年3月21日 下午
+      <time datetime="2021-03-24 11:20" pubdate>
+        2021年3月24日 上午
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      351 字
+      349 字
     </span>
   
 
@@ -224,25 +224,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">一文看懂js中falsy值的比较</h1>
+            <h1 style="display: none">js手写代码系列</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>面试中的笔试题经常有碰到 js 中假值的比较，其实主要考察的是 js 中在非全等情况下，比较的一个类型隐式转换问题</p>
+<p>js 中常用的一些方法的代码实现</p>
 </blockquote>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>js 中共有 8 个 falsy 值, 分别为 false, 0, 0n, -0, NaN, ‘’, null, undefined 还有 js 中易混的空数组和控对象。</p>
-<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="xml"><span class="hljs-comment">&lt;!-- 首先罗列所有易混的值 几个数字0 的转换表现一致所以保留一个 --&gt;</span></span><br><span class="xml">let falsyArr = [&#x27;&#x27;, false, 0, null, undefined, NaN, [], &#123;&#125;];</span><br><br><span class="xml">for (let i =0 ; i &lt; falsyArr.length; i ++) &#123;</span><br><span class="xml">    let result = &#123;&#125;;</span><br><span class="xml">    for (let j =0 ; j &lt; falsyArr.length; j ++)&#123;</span><br><span class="xml">        <span class="hljs-comment">&lt;!-- 不需要和自身对比，过滤 --&gt;</span></span><br><span class="xml">        if(i != j) result[falsyArr[j]] = (falsyArr[i] == falsyArr[j]);</span><br><span class="xml">    &#125;</span><br><span class="xml">    console.log(`和$&#123;falsyArr[i]&#125;的对比结果如下\n`)</span><br><span class="xml">    console.table(result)</span><br><span class="xml">&#125;</span><br><br></code></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/img/%E5%AF%B9%E6%AF%94%E6%B5%81%E7%A8%8B%E5%9B%BE.webp" srcset="/img/loading.gif" alt="图片来自掘金小册-前端面试之道"></p>
-<p>根据输出结果可以得到以下结论：</p>
-<ol>
-<li>[] 对比时会转化为空字符串 ‘’</li>
-<li>{} 对比会转化为 ‘[object Object]’ (<a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903555548053511">JavaScript 对象转换到基本类型值算法 ToPrimitive</a>)</li>
-<li>NaN, {} 和任何值比较都为 false</li>
-<li>null 和 undefined 除了 null == undefined 为 true 其他都是 false （js 规范中提到，在比较相等性之前不能将 null 和 undefined 转化为其他值，并且规定两者相等，都表示无效的值）</li>
-<li>‘’ 和 [],表现一致，和数字和 false 比较都会转化为数字 0，结果为 true，其他为 false</li>
-<li>NaN 不管是不是全等和自身相比都为 false</li>
-</ol>
-
+<h2 id="new-操作"><a href="#new-操作" class="headerlink" title="new 操作"></a>new 操作</h2><p>引用 MDN 上的相关描述：new 关键字会进行如下的操作：</p>
+<p>创建一个空的简单 JavaScript 对象（即{}）；<br>链接该对象（设置该对象的 constructor）到另一个对象 ；<br>将步骤 1 新创建的对象作为 this 的上下文 ；<br>如果该函数没有返回对象，则返回 this。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// construct: 构造函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">newFunction</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-comment">// 通过Object.create创建一个空对象；</span><br>  <span class="hljs-keyword">var</span> res = <span class="hljs-built_in">Object</span>.create(<span class="hljs-literal">null</span>);<br>  <span class="hljs-comment">// 获取第一个构造函数参数</span><br>  <span class="hljs-keyword">var</span> construct = <span class="hljs-built_in">Array</span>.prototype.shift.call(<span class="hljs-built_in">arguments</span>);<br>  res.__proto__ = construct.prototype;<br>  <span class="hljs-comment">// 使用apply执行构造函数，将构造函数的属性挂载在res上面</span><br>  <span class="hljs-keyword">var</span> conRes = construct.apply(res, <span class="hljs-built_in">arguments</span>);<br>  <span class="hljs-comment">// 判断返回类型</span><br>  <span class="hljs-keyword">return</span> conRes <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Object</span> ? conRes : res;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span>.prototype.bind = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">context</span>) </span>&#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span> !== <span class="hljs-string">&quot;function&quot;</span>) &#123;<br>        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&quot;not a function&quot;</span>);<br>      &#125;<br>      <span class="hljs-keyword">let</span> self = <span class="hljs-built_in">this</span>;<br>      <span class="hljs-keyword">let</span> args = [...arguments].slice(<span class="hljs-number">1</span>);<br>      <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Fn</span>(<span class="hljs-params"></span>) </span>&#123;&#125;<br>      Fn.prototype = <span class="hljs-built_in">this</span>.prototype;<br>      <span class="hljs-keyword">let</span> bound = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">let</span> res = [...args, ...arguments]; <span class="hljs-comment">//bind传递的参数和函数调用时传递的参数拼接</span><br>        context = <span class="hljs-built_in">this</span> <span class="hljs-keyword">instanceof</span> Fn ? <span class="hljs-built_in">this</span> : context || <span class="hljs-built_in">this</span>;<br>        <span class="hljs-keyword">return</span> self.apply(context, res);<br>      &#125;; <span class="hljs-comment">//原型链</span><br>      bound.prototype = <span class="hljs-keyword">new</span> Fn();<br>      <span class="hljs-keyword">return</span> bound;<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="Object-create"><a href="#Object-create" class="headerlink" title="Object.create"></a>Object.create</h2><p>方法创建一个新对象，使用现有的对象来提供新创建的对象的<strong>proto</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj</span>)</span>&#123;<br>   <span class="hljs-keyword">let</span> oo = &#123;&#125;;<br>   oo.__proto__ = obj;<br>    <span class="hljs-keyword">return</span> oo;<br>&#125;<br>因为__proto__从web标准中删除，所以第二种更好<br><br><span class="hljs-function"><span class="hljs-title">funciton</span>(<span class="hljs-params">obj</span>)</span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Fn</span>(<span class="hljs-params"></span>)</span>&#123;&#125;<br>    Fn.prototype = obj;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Fn()<br>&#125;<br><br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -274,18 +267,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/24/js%E6%89%8B%E5%86%99%E4%BB%A3%E7%A0%81%E7%B3%BB%E5%88%97/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">js手写代码系列</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/20/js%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E6%96%B9%E5%BC%8F%E5%92%8C%E4%BC%98%E7%BC%BA%E7%82%B9/">
-                        <span class="hidden-mobile">js实现继承的方式和优缺点</span>
+                      <a href="/2021/03/21/%E4%B8%80%E6%96%87%E7%9C%8B%E6%87%82js%E4%B8%ADfalsy%E5%80%BC%E7%9A%84%E6%AF%94%E8%BE%83/">
+                        <span class="hidden-mobile">一文看懂js中falsy值的比较</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
