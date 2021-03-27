@@ -1,7 +1,9 @@
 ---
 title: js面试题
 categories: 前端开发
-tags: js 面试
+tags:
+  - js
+  - 面试
 date: 2019-02-27 14:09:45
 ---
 
