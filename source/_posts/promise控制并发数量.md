@@ -60,6 +60,33 @@ mapLimit(dataLists, 3, asyncLoad).then(response => {
 
 ```
 
+## 使用 promise.race 实现
+
+```
+// 第二种实现方案
+
+function mapLimit(list, limit, handler) {
+    let urlList = [].concat.call(list);
+    let promisesList = [];
+    promisesList = urlList.splice(0,limit).map((item,index) => {
+        return handler(item).then(() => {
+            return index;
+        })
+    })
+    let p = Promise.race(promisesList);
+
+    for (let i = 0; i < urlList.length; i++) {
+        p = p.then((res)=>{
+            promisesList[res] = handler(urlList[i]).then(()=>{
+                return res;
+            });
+            return Promise.race(promisesList);
+        })
+    }
+}
+
+```
+
 参考文章
 
 [15 行代码实现并发控制（javascript）](https://segmentfault.com/a/1190000013128649)
