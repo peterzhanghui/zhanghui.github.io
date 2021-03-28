@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>promise控制并发数量 - 前端嘉嘉的博客</title>
+  <title>js柯里化实现 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="promise控制并发数量">
+            <span class="h2" id="subtitle" title="js柯里化实现">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-27 21:32" pubdate>
-        2021年3月27日 晚上
+      <time datetime="2021-03-28 09:58" pubdate>
+        2021年3月28日 上午
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      498 字
+      336 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -224,18 +224,21 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">promise控制并发数量</h1>
+            <h1 style="display: none">js柯里化实现</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>控制并发数量主要是考察对 promise 的掌握情况。</p>
+<p>柯里化是 Javascript 中函数式编程的一个重要概念。js 柯里化 引用百科中的说明–柯里化是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术</p>
 </blockquote>
-<h2 id="使用-promise-all-实现"><a href="#使用-promise-all-实现" class="headerlink" title="使用 promise.all 实现"></a>使用 promise.all 实现</h2><p>实现思路：<br>首先使用 while 并发多个请求<br>然后不管那个异步请求执行完成，如果待执行的数组中还有任务，就会返回一个新的异步任务（最绕的就是这个）<br>最后使用 Promise.all 监测所有并发数组执行完成返回。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 并发控制的方法</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@params </span>list &#123;Array&#125; - 要迭代的数组</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@params </span>limit &#123;Number&#125; - 并发数量控制数</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@params </span>asyncHandle &#123;Function&#125; - 对`list`的每一个项的处理函数，参数为当前处理项，必须 return 一个Promise来确定是否继续进行迭代</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return <span class="hljs-type">&#123;Promise&#125;</span> </span>- 返回一个 Promise 值来确认所有数据是否迭代完成</span><br><span class="hljs-comment"> */</span><br> <span class="hljs-keyword">let</span> mapLimit = <span class="hljs-function">(<span class="hljs-params">list, limit, asyncHandle</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> recursion = <span class="hljs-function">(<span class="hljs-params">arr</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> asyncHandle(arr.shift())<br>            .then(<span class="hljs-function">()=&gt;</span>&#123;<br>                <span class="hljs-keyword">if</span> (arr.length!==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> recursion(arr)   <span class="hljs-comment">// 数组还未迭代完，递归继续进行迭代</span><br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;finish&#x27;</span>;<br>            &#125;)<br>    &#125;;<br><br>    <span class="hljs-keyword">let</span> listCopy = [].concat(list); <span class="hljs-comment">// 对外部数组做修改，先做一个复制，不影响外部数据</span><br>    <span class="hljs-keyword">let</span> asyncList = []; <span class="hljs-comment">// 正在进行的所有并发异步操作</span><br>    <span class="hljs-keyword">while</span>(limit--) &#123;<br>        asyncList.push( recursion(listCopy) );<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(asyncList);  <span class="hljs-comment">// 所有并发异步操作都完成后，本次并发控制迭代完成</span><br>&#125;<br><br><span class="hljs-keyword">var</span> dataLists = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">11</span>,<span class="hljs-number">100</span>,<span class="hljs-number">123</span>];<br><span class="hljs-keyword">var</span> count = <span class="hljs-number">0</span>;<br><br><span class="hljs-comment">// 异步加载的方法</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">asyncLoad</span> (<span class="hljs-params">curItem</span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;<br>        count++<br>        <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(curItem, <span class="hljs-string">&#x27;当前并发量:&#x27;</span>, count--)<br>            resolve();<br>        &#125;, <span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">5000</span>)<br>    &#125;);<br>&#125;<br><br><span class="hljs-comment">// 测试</span><br>mapLimit(dataLists, <span class="hljs-number">3</span>, asyncLoad).then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;finish&#x27;</span>, response)<br>&#125;)<br><br></code></pre></td></tr></table></figure>
-<h2 id="使用-promise-race-实现"><a href="#使用-promise-race-实现" class="headerlink" title="使用 promise.race 实现"></a>使用 promise.race 实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 第二种实现方案</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">mapLimit</span>(<span class="hljs-params">list, limit, handler</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> urlList = [].concat.call(list);<br>    <span class="hljs-keyword">let</span> promisesList = [];<br>    promisesList = urlList.splice(<span class="hljs-number">0</span>,limit).map(<span class="hljs-function">(<span class="hljs-params">item,index</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">return</span> handler(item).then(<span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-keyword">return</span> index;<br>        &#125;)<br>    &#125;)<br>    <span class="hljs-keyword">let</span> p = <span class="hljs-built_in">Promise</span>.race(promisesList);<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; urlList.length; i++) &#123;<br>        p = p.then(<span class="hljs-function">(<span class="hljs-params">res</span>)=&gt;</span>&#123;<br>            promisesList[res] = handler(urlList[i]).then(<span class="hljs-function">()=&gt;</span>&#123;<br>                <span class="hljs-keyword">return</span> res;<br>            &#125;);<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.race(promisesList);<br>        &#125;)<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
-<p>参考文章</p>
-<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000013128649">15 行代码实现并发控制（javascript）</a></p>
-
+<p>主要的作用如下</p>
+<ul>
+<li>延迟计算</li>
+<li>参数复用</li>
+<li>提前返回</li>
+</ul>
+<p>接下来我们分别使用代码实现一下</p>
+<h2 id="延迟计算"><a href="#延迟计算" class="headerlink" title="延迟计算"></a>延迟计算</h2><h3 id="参数个数已知"><a href="#参数个数已知" class="headerlink" title="参数个数已知"></a>参数个数已知</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-comment">// 函数柯里化 要求，实现 add(1)(2)(3), add(1,2)(3) 返回累加结果</span><br><span class="hljs-comment">// 实现思路，一个是保存参数，reduce 实现累加</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">carry</span>(<span class="hljs-params">fn, args</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> len = fn.length;<br>    args = args || [];<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">let</span> arg = [].slice.apply(<span class="hljs-built_in">arguments</span>);<br>        <span class="hljs-keyword">var</span> argsList = args.slice(<span class="hljs-number">0</span>);<br>        argsList.push.apply(argsList,arg);<br>        <span class="hljs-keyword">if</span>(argsList.length &lt; len)&#123;<br>            <span class="hljs-keyword">return</span> carry.call(<span class="hljs-built_in">this</span>,fn,argsList);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">return</span> fn.apply(<span class="hljs-built_in">this</span>,argsList);<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span>  <span class="hljs-title">add</span>(<span class="hljs-params">a,b,c</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> args = [].slice.apply(<span class="hljs-built_in">arguments</span>);<br>    <span class="hljs-keyword">let</span> result = args.reduce(<span class="hljs-function">(<span class="hljs-params">account,item</span>)=&gt;</span>&#123;<br>        <span class="hljs-keyword">return</span> account+= item;<br>    &#125;)<br>    <span class="hljs-built_in">console</span>.log(result);<br>&#125;<br><span class="hljs-keyword">var</span> addCarry = carry(add);<br><br><span class="hljs-comment">// addCarry(3)(4)(6);</span><br>addCarry(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>)<br><br></code></pre></td></tr></table></figure>
+<h3 id="参数个数未知"><a href="#参数个数未知" class="headerlink" title="参数个数未知"></a>参数个数未知</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> carry= <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fn</span>) </span>&#123;<br>    <span class="hljs-keyword">var</span> argsList = [];<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">let</span> args = [].slice.apply(<span class="hljs-built_in">arguments</span>);<br>        <span class="hljs-keyword">if</span> (args.length == <span class="hljs-number">0</span>) &#123;<br>            fn(argsList)<br>        &#125;<span class="hljs-keyword">else</span> &#123;<br>            argsList.push.apply(argsList,args)<br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span> (<span class="hljs-params">list</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> result = list.reduce(<span class="hljs-function">(<span class="hljs-params">account,item</span>)=&gt;</span>&#123;<br>        <span class="hljs-keyword">return</span> account+= item;<br>    &#125;)<br>    <span class="hljs-built_in">console</span>.log(result);<br><br>&#125;<br><br><span class="hljs-keyword">var</span> addCarry = carry(add);<br><br>addCarry(<span class="hljs-number">1</span>);<br>addCarry(<span class="hljs-number">20</span>);<br>addCarry(<span class="hljs-number">3</span>);<br>addCarry();<br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -244,7 +247,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91-%E9%9D%A2%E8%AF%95%E9%A2%98/">前端开发 面试题</a>
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/">前端开发</a>
                     
                   </div>
                 
@@ -267,18 +270,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/28/js%E6%9F%AF%E9%87%8C%E5%8C%96%E5%AE%9E%E7%8E%B0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">js柯里化实现</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/27/js%E4%B8%AD%E8%8A%82%E6%B5%81%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">
-                        <span class="hidden-mobile">js中节流函数的实现方式</span>
+                      <a href="/2021/03/27/promise%E6%8E%A7%E5%88%B6%E5%B9%B6%E5%8F%91%E6%95%B0%E9%87%8F/">
+                        <span class="hidden-mobile">promise控制并发数量</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
