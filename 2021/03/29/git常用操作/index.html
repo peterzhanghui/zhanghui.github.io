@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>promise总结 - 前端嘉嘉的博客</title>
+  <title>git常用操作 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="promise总结">
+            <span class="h2" id="subtitle" title="git常用操作">
               
             </span>
 
@@ -172,7 +172,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-29 18:13" pubdate>
+      <time datetime="2021-03-29 19:03" pubdate>
         2021年3月29日 晚上
       </time>
     </span>
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      93 字
+      192 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -224,14 +224,17 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">promise总结</h1>
+            <h1 style="display: none">git常用操作</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>整理一些 promise 常考的代码执行题</p>
+<p>梳理 git 中易混的操作</p>
 </blockquote>
-<h2 id="处理器函数-executor-中有-null"><a href="#处理器函数-executor-中有-null" class="headerlink" title="处理器函数 executor 中有 null"></a>处理器函数 executor 中有 null</h2><p>如果 promise 的处理器函数 executor 中有 null，那么对应的状态会向下传递</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> p1 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>&#123;<br>    reject(<span class="hljs-number">1000</span>)<br>&#125;)<br><span class="hljs-keyword">var</span> p2 = p1.then( <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;p2&#x27;</span>);<br><br>&#125;, <span class="hljs-literal">null</span>)<br>p2.then(<span class="hljs-function">()=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;p2 success&#x27;</span>);<br>&#125;,<span class="hljs-function">()=&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;p2 error&#x27;</span>);  <span class="hljs-comment">// p2 error</span><br>&#125;)<br><br></code></pre></td></tr></table></figure>
+<h2 id="git-reset-–hard"><a href="#git-reset-–hard" class="headerlink" title="git reset (–hard)"></a>git reset (–hard)</h2><p>git reset + commitId 返回指定 id 的提交，但是依然会保存我们已经提交的代码，知识 log 信息会删除<br>git reset –hard 会重置所有已提交的代码到指定的版本</p>
+<h2 id="git-rebase-i-id"><a href="#git-rebase-i-id" class="headerlink" title="git rebase -i id"></a>git rebase -i id</h2><p>以对应的 id 提交为基础，做处理</p>
+<h3 id="配合-git-fetch-做一个合并冲突的操作"><a href="#配合-git-fetch-做一个合并冲突的操作" class="headerlink" title="配合 git fetch 做一个合并冲突的操作"></a>配合 git fetch 做一个合并冲突的操作</h3><p>git fetch + 远程分支名，先把远程分支的代码更新到本地<br>git rebase + 分支名 ，这样处理后就是本地的修改都是基于远程的版本做的修改，分支是干净的，对比直接 git merge 需要提交一次合并冲突的 commit</p>
+<h2 id="git-revert"><a href="#git-revert" class="headerlink" title="git revert"></a>git revert</h2><p>代码回滚到指定分支，并生成一次新的 commit</p>
+
             </div>
             <hr>
             <div>
@@ -261,18 +264,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/29/git%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">git常用操作</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/28/js%E6%9F%AF%E9%87%8C%E5%8C%96%E5%AE%9E%E7%8E%B0/">
-                        <span class="hidden-mobile">js柯里化实现</span>
+                      <a href="/2021/03/29/promise%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">promise总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
