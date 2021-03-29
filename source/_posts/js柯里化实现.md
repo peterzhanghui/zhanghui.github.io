@@ -13,7 +13,6 @@ date: 2021-03-28 09:58:56
 
 - 延迟计算
 - 参数复用
-- 提前返回
 
 接下来我们分别使用代码实现一下
 
@@ -81,4 +80,32 @@ addCarry(1);
 addCarry(20);
 addCarry(3);
 addCarry();
+```
+
+## 参数复用
+
+比如我们判断参数类型的方法
+
+```
+
+function carry(fn) {
+    const inner = (args = []) => {
+       return  args.length >= fn.length ?  fn(...args) : (...innerArgs) => inner([...args, ...innerArgs])
+    }
+    return inner();
+}
+
+function isType(type, val) {
+    return Object.prototype.toString.call(val) == `[object ${type}]`;
+}
+
+let check = {};
+
+['String', 'Number', 'Array', "Object", "Boolean", 'Null', 'Undefined'].forEach((type) => {
+    check['is' + type] = carry(isType)(type);
+})
+
+<!-- 测试代码 -->
+console.log(check.isNumber('ddd'));
+
 ```
