@@ -395,6 +395,10 @@ MdEditor 是一个在线编辑 Markdown
           
           堆栈堆：存储引用类型值的空间
 栈：存储基本类型值和指定代码的环境
+如何判断一个数据是 NaN
+NaN 非数字 但是用 typeof 检测是 number 类型 所以可以 （typeof XXX == number &amp;&amp; isNaN(XXX)）
+利用 NaN 是唯一一个不等于任何自身的特点 n !== n
+Object.is(value1, value2)方法（判断两个值是否相等）
 
         </a>
       </p>
