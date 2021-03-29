@@ -249,7 +249,7 @@ date: 2019-02-26 16:43:26
 
 4）flex-basis：设置多余空间项目主轴所占比例空间
 
-5）flex：flex-grow 和 flex-shrink 和 flex-basis 的缩写方式 默认为 0 1 auto
+5）**flex：flex-grow 和 flex-shrink 和 flex-basis 的缩写方式 默认为 0 1 auto**
 
 6）align-self：设置子元素自己的垂直排列方式，默认为盒子的 align-items 的值
 
