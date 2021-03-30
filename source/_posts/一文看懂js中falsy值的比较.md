@@ -29,6 +29,29 @@ for (let i =0 ; i < falsyArr.length; i ++) {
 
 ```
 
+## 拆箱转换
+
+拆箱转换在 JavaScript 标准中，规定了 ToPrimitive 函数，它是对象类型到基本类型的转换（即，拆箱转换）。对象到 String 和 Number 的转换都遵循“先拆箱再转换”的规则。通过拆箱转换，把对象变成基本类型，再从基本类型转换为对应的 String 或者 Number。拆箱转换会尝试调用 valueOf 和 toString 来获得拆箱后的基本类型。如果 valueOf 和 toString 都不存在，或者没有返回基本类型，则会产生类型错误 TypeError。
+
+```
+var o = {valueOf : () => {console.log("valueOf"); return {}},toString : () => {console.log("toString"); return {}}}
+o * 2
+
+// valueOf
+// toString
+// TypeError
+
+```
+
+在 ES6 之后，还允许对象通过显式指定 @@toPrimitive Symbol 来覆盖原有的行为
+
+```
+var o = {valueOf : () => {console.log("valueOf"); return {}},toString : () => {console.log("toString"); return {}}}o[Symbol.toPrimitive] = () => {console.log("toPrimitive"); return "hello"}console.log(o + "")
+// toPrimitive
+// hello
+
+```
+
 ## 总结
 
 ![图片来自掘金小册-前端面试之道](/img/对比流程图.webp)
