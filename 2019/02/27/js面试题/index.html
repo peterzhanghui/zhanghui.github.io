@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.5k 字
     </span>
   
 
@@ -233,6 +233,7 @@
 <li>NaN 非数字 但是用 typeof 检测是 number 类型 所以可以 （typeof XXX == number &amp;&amp; isNaN(XXX)）</li>
 <li>利用 NaN 是唯一一个不等于任何自身的特点 n !== n</li>
 <li>Object.is(value1, value2)方法（判断两个值是否相等）</li>
+<li>Number.isNaN(val)</li>
 </ol>
 <h2 id="Object-is-和-和-的区别"><a href="#Object-is-和-和-的区别" class="headerlink" title="Object.is 和 == 和 === 的区别"></a>Object.is 和 == 和 === 的区别</h2><p>相同点都是判断两个值是否相等的操作</p>
 <p>区别如下：</p>
@@ -246,7 +247,7 @@
 <li>number 转换的值不同 number（null）为 0 number（undefined） 为 NaN</li>
 <li>相同点是如果使用 if 判断都会转换为 false</li>
 </ul>
-<h2 id="js-如何判断是"><a href="#js-如何判断是" class="headerlink" title="js 如何判断是"></a>js 如何判断是</h2><h2 id="17-Promise-的理解"><a href="#17-Promise-的理解" class="headerlink" title="17.Promise 的理解"></a>17.Promise 的理解</h2><h3 id="一、什么是-Promise？"><a href="#一、什么是-Promise？" class="headerlink" title="一、什么是 Promise？"></a>一、什么是 Promise？</h3><p>我们都知道，Promise 是承诺的意思，承诺它过一段时间会给你一个结 果。Promise 是一种解决异步编程的方案，相比回调函数和事件更合理和更 强大。 从语法上讲，promise 是一个对象，从它可以获取异步操作的消息；</p>
+<h2 id="Promise-的理解"><a href="#Promise-的理解" class="headerlink" title="Promise 的理解"></a>Promise 的理解</h2><h3 id="一、什么是-Promise？"><a href="#一、什么是-Promise？" class="headerlink" title="一、什么是 Promise？"></a>一、什么是 Promise？</h3><p>我们都知道，Promise 是承诺的意思，承诺它过一段时间会给你一个结 果。Promise 是一种解决异步编程的方案，相比回调函数和事件更合理和更 强大。 从语法上讲，promise 是一个对象，从它可以获取异步操作的消息；</p>
 <h3 id="二、promise-有三种状态："><a href="#二、promise-有三种状态：" class="headerlink" title="二、promise 有三种状态："></a>二、promise 有三种状态：</h3><p>pending 初始状态也叫等待状态，fulfiled 成功状态，rejected 失败状态；状态一旦改变，就不会再变。创造 promise 实例后，它会立即执行。</p>
 <h3 id="三、Promise-的两个特点"><a href="#三、Promise-的两个特点" class="headerlink" title="三、Promise 的两个特点"></a>三、Promise 的两个特点</h3><ol>
 <li>Promise 对象的状态不受外界影响</li>
@@ -261,7 +262,7 @@
 <li>链式调用，主要解决回调地狱问题</li>
 <li>支持并发请求</li>
 </ol>
-<h2 id="Vue-组件中的-data-为什么是函数"><a href="#Vue-组件中的-data-为什么是函数" class="headerlink" title="Vue 组件中的 data 为什么是函数"></a>Vue 组件中的 data 为什么是函数</h2><p>Data 是一个函数时，每个组件实例都有自己的作用域，每个实例相互独 立，不会相互影响如果是引用类型（对象），当多个组件共用一个数据源时，一处数据改变， 所有的组件数据都会改变，所以要利用函数通过 return 返回对象的拷贝， （返回一个新数据），让每个实例都有自己的作用域，相互不影响。</p>
+<h3 id="Promise-原理-（待做）"><a href="#Promise-原理-（待做）" class="headerlink" title="Promise 原理 （待做）"></a>Promise 原理 （待做）</h3><h2 id="Vue-组件中的-data-为什么是函数"><a href="#Vue-组件中的-data-为什么是函数" class="headerlink" title="Vue 组件中的 data 为什么是函数"></a>Vue 组件中的 data 为什么是函数</h2><p>Data 是一个函数时，每个组件实例都有自己的作用域，每个实例相互独 立，不会相互影响如果是引用类型（对象），当多个组件共用一个数据源时，一处数据改变， 所有的组件数据都会改变，所以要利用函数通过 return 返回对象的拷贝， （返回一个新数据），让每个实例都有自己的作用域，相互不影响。</p>
 <h2 id="Vue-双数据绑定过程中，这边儿数据改变了怎么通知另一边"><a href="#Vue-双数据绑定过程中，这边儿数据改变了怎么通知另一边" class="headerlink" title="Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边"></a>Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边</h2><p>改变数据劫持和观察者模式 Vue 数据双向绑定是通过数据劫持和观察者模式来实现的， 数据劫持，object.defineproperty 它的目的是：当给属性赋值的时候，程序可以感知到，就可以控制属性值的有效范围，可以改变其他属性的 值观察者模式它的目的是当属性发生改变的时候，使用该数据的地方也发 生改变</p>
 <h2 id="Vuex-流程"><a href="#Vuex-流程" class="headerlink" title="Vuex 流程"></a>Vuex 流程</h2><p>在 vue 组件里面，通过 dispatch 来触发 actions 提交修改数据的操作， 然后通过 actions 的 commit 触发 mutations 来修改数据，mutations 接收到 commit 的请求，就会自动通过 mutate 来修改 state，最后由 store 触发每一个调用它的组件的更新</p>
 <h3 id="vuex-的-State-特性是？"><a href="#vuex-的-State-特性是？" class="headerlink" title="vuex 的 State 特性是？"></a>vuex 的 State 特性是？</h3><p>State 就是数据源的存放地 State 里面的数据是响应式的，state 中的数据改变，对应这个数据的组 件也会发生改变 State 通过 mapstate 把全局的 state 和 getters 映射到当前组件的计算 属性中</p>
@@ -276,7 +277,7 @@
 <li><p>cacheHandlers 事件侦听器缓存 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的 变化但是因为是同一个函数，所以没有追踪变化，直接缓存起来复用 即可。</p>
 </li>
 </ol>
-<h2 id="nuxt-js"><a href="#nuxt-js" class="headerlink" title="nuxt.js"></a>nuxt.js</h2><h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><h2 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h2>
+<h2 id="nuxt-js-（待做）"><a href="#nuxt-js-（待做）" class="headerlink" title="nuxt.js （待做）"></a>nuxt.js （待做）</h2><h2 id="webpack-（待做）"><a href="#webpack-（待做）" class="headerlink" title="webpack （待做）"></a>webpack （待做）</h2><h2 id="vue-router-（待做）"><a href="#vue-router-（待做）" class="headerlink" title="vue-router （待做）"></a>vue-router （待做）</h2>
             </div>
             <hr>
             <div>

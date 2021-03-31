@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      351 字
+      600 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      7
        分钟
     </span>
   
@@ -232,6 +232,10 @@
 </blockquote>
 <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>js 中共有 8 个 falsy 值, 分别为 false, 0, 0n, -0, NaN, ‘’, null, undefined 还有 js 中易混的空数组和控对象。</p>
 <figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="xml"><span class="hljs-comment">&lt;!-- 首先罗列所有易混的值 几个数字0 的转换表现一致所以保留一个 --&gt;</span></span><br><span class="xml">let falsyArr = [&#x27;&#x27;, false, 0, null, undefined, NaN, [], &#123;&#125;];</span><br><br><span class="xml">for (let i =0 ; i &lt; falsyArr.length; i ++) &#123;</span><br><span class="xml">    let result = &#123;&#125;;</span><br><span class="xml">    for (let j =0 ; j &lt; falsyArr.length; j ++)&#123;</span><br><span class="xml">        <span class="hljs-comment">&lt;!-- 不需要和自身对比，过滤 --&gt;</span></span><br><span class="xml">        if(i != j) result[falsyArr[j]] = (falsyArr[i] == falsyArr[j]);</span><br><span class="xml">    &#125;</span><br><span class="xml">    console.log(`和$&#123;falsyArr[i]&#125;的对比结果如下\n`)</span><br><span class="xml">    console.table(result)</span><br><span class="xml">&#125;</span><br><br></code></pre></td></tr></table></figure>
+<h2 id="拆箱转换"><a href="#拆箱转换" class="headerlink" title="拆箱转换"></a>拆箱转换</h2><p>拆箱转换在 JavaScript 标准中，规定了 ToPrimitive 函数，它是对象类型到基本类型的转换（即，拆箱转换）。对象到 String 和 Number 的转换都遵循“先拆箱再转换”的规则。通过拆箱转换，把对象变成基本类型，再从基本类型转换为对应的 String 或者 Number。拆箱转换会尝试调用 valueOf 和 toString 来获得拆箱后的基本类型。如果 valueOf 和 toString 都不存在，或者没有返回基本类型，则会产生类型错误 TypeError。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">var o = &#123;valueOf : <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;valueOf&quot;</span>); <span class="hljs-keyword">return</span> &#123;&#125;&#125;,toString : <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;toString&quot;</span>); <span class="hljs-keyword">return</span> &#123;&#125;&#125;&#125;<br>o * <span class="hljs-number">2</span><br><br><span class="hljs-regexp">//</span> valueOf<br><span class="hljs-regexp">//</span> toString<br><span class="hljs-regexp">//</span> <span class="hljs-built_in">TypeError</span><br><br></code></pre></td></tr></table></figure>
+<p>在 ES6 之后，还允许对象通过显式指定 @@toPrimitive Symbol 来覆盖原有的行为</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">var o = &#123;valueOf : <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;valueOf&quot;</span>); <span class="hljs-keyword">return</span> &#123;&#125;&#125;,toString : <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;toString&quot;</span>); <span class="hljs-keyword">return</span> &#123;&#125;&#125;&#125;o[<span class="hljs-built_in">Symbol</span>.toPrimitive] = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;toPrimitive&quot;</span>); <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;hello&quot;</span>&#125;<span class="hljs-built_in">console</span>.log(o + <span class="hljs-string">&quot;&quot;</span>)<br><span class="hljs-regexp">//</span> toPrimitive<br><span class="hljs-regexp">//</span> hello<br><br></code></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><img src="/img/%E5%AF%B9%E6%AF%94%E6%B5%81%E7%A8%8B%E5%9B%BE.webp" srcset="/img/loading.gif" alt="图片来自掘金小册-前端面试之道"></p>
 <p>根据输出结果可以得到以下结论：</p>
 <ol>
@@ -259,9 +263,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/js/">js</a>
-                    
                       <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                      <a class="hover-with-bg" href="/tags/js/">js</a>
                     
                   </div>
                 
