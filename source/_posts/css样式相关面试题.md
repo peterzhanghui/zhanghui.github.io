@@ -1,7 +1,9 @@
 ---
 title: css样式相关面试题
 categories: 面试题
-tags: css
+tags:
+  - css
+  - 面试题
 date: 2019-02-26 16:43:26
 ---
 
@@ -298,6 +300,8 @@ date: 2019-02-26 16:43:26
 - media
 - rem
 - vh / vw 类似百分比布局
+
+## 移动端适配 1px 的问题 （待做）
 
 ## content-visibility: auto
 
