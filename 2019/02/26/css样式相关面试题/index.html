@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.9k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      25
        分钟
     </span>
   
@@ -322,7 +322,14 @@
 <li>rem</li>
 <li>vh / vw 类似百分比布局</li>
 </ul>
-<h2 id="移动端适配-1px-的问题-（待做）"><a href="#移动端适配-1px-的问题-（待做）" class="headerlink" title="移动端适配 1px 的问题 （待做）"></a>移动端适配 1px 的问题 （待做）</h2><h2 id="content-visibility-auto"><a href="#content-visibility-auto" class="headerlink" title="content-visibility: auto"></a>content-visibility: auto</h2><p>使用 content-visibility 可以跳过渲染屏幕之外的内容</p>
+<h2 id="移动端适配-1px-的问题-（待做）"><a href="#移动端适配-1px-的问题-（待做）" class="headerlink" title="移动端适配 1px 的问题 （待做）"></a>移动端适配 1px 的问题 （待做）</h2><p>dpr = 物理像素 / css 像素 在 dpr = 2；<br>1px 的 css 像素在设备中是 2px 的物理像素，这会导致在设备上看上去 1px 的边框是 2px<br>解决方法： 用 transfrom： scale（）缩小 dpr 倍数 在 meta 标签中设定 scale 缩小两倍</p>
+<h2 id="content-visibility-auto"><a href="#content-visibility-auto" class="headerlink" title="content-visibility: auto"></a>content-visibility: auto</h2><p>使用 content-visibility 可以跳过渲染屏幕之外的内容</p>
+<h2 id="will-change"><a href="#will-change" class="headerlink" title="will-change"></a>will-change</h2><p>目前，主流浏览器一般根据 position、transform 等属性来决定合成策略，来“猜测”这些元素未来可能发生变化<br>使用 will-change，可以提示浏览器说明元素可能会有变化，这样浏览器就可以给他单独生成一个位图，可以提升合成策略的效果。<br>浏览器将为元素创建一个单独的层。之后，它将元素的渲染与其他优化一起委派给 GPU。随着 GPU 加速接管动画的渲染，这将使动画更加流畅。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-comment">//在样式表中</span><br>.animating-element&#123;<br>  will-change：opacity;<br>&#125;<br><span class="hljs-comment">//在HTML中</span><br>&lt;<span class="hljs-keyword">div</span> <span class="hljs-keyword">class</span> =“ animating-elememt”&gt;<br>  动画子元素<br>&lt;/ <span class="hljs-keyword">div</span>&gt;<br><br></code></pre></td></tr></table></figure>
+<p>在浏览器中呈现以上代码段时，它将识别该 will-change 属性并优化将来与不透明度相关的更改。</p>
+<h3 id="什么时候不使用"><a href="#什么时候不使用" class="headerlink" title="什么时候不使用"></a>什么时候不使用</h3><p>虽然 will-change 是为了提高性能，它也可以，如果你滥用它降低了网络应用性能。<br>使用 will-change 表示该元素将来会更改。<br>因此，如果您尝试同时使用 will-change 动画和动画，那么它不会给您带来优化。因此，建议在父元素上使用 will-change，在子元素上使用动画。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs haxe">.my-<span class="hljs-class"><span class="hljs-keyword">class</span> </span>&#123;<br>  will-change：opacity;<br>&#125;<br>.child-<span class="hljs-class"><span class="hljs-keyword">class</span> </span>&#123;<br>  过渡：不透明度<span class="hljs-number">1</span>s缓入；<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>请勿使用在非动画元素。<br>在 will-change 元素上使用时，浏览器将尝试通过将元素移到新层并将转换移交给 GPU 来对其进行优化。如果您没有任何要转换的内容，则会导致资源浪费。</p>
 
             </div>
             <hr>
