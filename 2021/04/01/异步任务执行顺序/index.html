@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>面试题梳理 - 前端嘉嘉的博客</title>
+  <title>异步任务执行顺序 - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="面试题梳理">
+            <span class="h2" id="subtitle" title="异步任务执行顺序">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-31 09:59" pubdate>
-        2021年3月31日 上午
+      <time datetime="2021-04-01 09:41" pubdate>
+        2021年4月1日 上午
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      734 字
+      405 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      5
        分钟
     </span>
   
@@ -224,32 +224,35 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">面试题梳理</h1>
+            <h1 style="display: none">异步任务执行顺序</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>梳理一些有趣的面试题，查漏补缺</p>
+<p>常见的异步 async/await promise setTimeout 执行顺序问题，通过一道题来看看具体顺序</p>
 </blockquote>
-<h2 id="前端优化"><a href="#前端优化" class="headerlink" title="前端优化"></a>前端优化</h2><ul>
-<li>降低请求量：合并资源，减少 HTTP 请求数，minify / gzip 压缩，webP，lazyLoad。</li>
-<li>加快请求速度：预解析 DNS，减少域名数，并行加载，CDN 分发。</li>
-<li>缓存：HTTP 协议缓存请求，离线缓存 manifest，离线数据缓存 localStorage。</li>
-<li>渲染：JS/CSS 优化，加载顺序，服务端渲染，pipeline。</li>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">async1</span>(<span class="hljs-params"></span>) </span>&#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;async1 start&#x27;</span>);<br>	<span class="hljs-keyword">await</span> async2();<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;asnyc1 end&#x27;</span>);<br>&#125;<br><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">async2</span>(<span class="hljs-params"></span>) </span>&#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;async2&#x27;</span>);<br>&#125;<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;script start&#x27;</span>);<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;setTimeOut&#x27;</span>);<br>&#125;, <span class="hljs-number">0</span>);<br>async1();<br><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">reslove</span>) </span>&#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;promise1&#x27;</span>);<br>	reslove();<br>&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;promise2&#x27;</span>);<br>&#125;)<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;script end&#x27;</span>);<br><br></code></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xquery">script <span class="hljs-keyword">start</span><br>async1 <span class="hljs-keyword">start</span><br>async2<br>promise1<br>script <span class="hljs-keyword">end</span><br>asnyc1 <span class="hljs-keyword">end</span><br>promise2<br>setTimeOut<br></code></pre></td></tr></table></figure>
+<h2 id="js-中-eventLoop-事件循环机制"><a href="#js-中-eventLoop-事件循环机制" class="headerlink" title="js 中 eventLoop 事件循环机制"></a>js 中 eventLoop 事件循环机制</h2><h3 id="微任务-microtasks-（JavaScript-引擎内部的微任务）"><a href="#微任务-microtasks-（JavaScript-引擎内部的微任务）" class="headerlink" title="微任务 microtasks （JavaScript 引擎内部的微任务）"></a>微任务 microtasks （JavaScript 引擎内部的微任务）</h3><ul>
+<li>process.nextTick</li>
+<li>Promises.then</li>
+<li>Object.observe</li>
+<li>MutationObserver</li>
 </ul>
-<h2 id="click-在-ios-上有-300ms-延迟，原因及如何解决？"><a href="#click-在-ios-上有-300ms-延迟，原因及如何解决？" class="headerlink" title="click 在 ios 上有 300ms 延迟，原因及如何解决？"></a>click 在 ios 上有 300ms 延迟，原因及如何解决？</h2><p>主要原因是 ios 有双击区域放大的功能，所以在第一次 click 后会监测 300ms 看会不会有第二次点击，但是对于只点击一次的操作会有慢了的错觉。</p>
-<ol>
-<li>粗暴型，禁用缩放 <meta name="viewport" content="width=device-width, user-scalable=no"></li>
-<li>利用 FastClick，其原理是： 检测到 touchend 事件后，立刻出发模拟 click 事件，并且把浏览器 300 毫秒之后真正出 发的事件给阻断掉</li>
-</ol>
-<h2 id="cookie-和-session-的区别-localstorage-和-sessionstorage-的区别"><a href="#cookie-和-session-的区别-localstorage-和-sessionstorage-的区别" class="headerlink" title="cookie 和 session 的区别 localstorage 和 sessionstorage 的区别"></a>cookie 和 session 的区别 localstorage 和 sessionstorage 的区别</h2><p>Cookie 和 session 都可用来存储用户信息，cookie 存放于客户端，session 存放于服务器端， 因为 cookie 存放于客户端有可能被窃取，所以 cookie 一般用来存放不敏感的信息，比如 用户设置的网站主题(防止 xss 获取，可以设置 http-only 使用 https)，敏感的信息用 session 存储，比如用户的登陆信息，session 可以 存放于文件，数据库，内存中都可以，cookie 可以服务器端响应的时候设置，也可以客 户端通过 JS 设置<br>cookie 会在请求时在 http 首部发送给客户端，</p>
-<h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>cookie 一般在客户端有 大小限制，一般为 4K，</p>
-<h3 id="cookie，localstorage，sessionstorage-的区别"><a href="#cookie，localstorage，sessionstorage-的区别" class="headerlink" title="cookie，localstorage，sessionstorage 的区别"></a>cookie，localstorage，sessionstorage 的区别</h3><ol>
-<li>生命周期： Cookie：可设置失效时间，否则默认为关闭浏览器后失效 Localstorage:除非被手动清除，否则永久保存 Sessionstorage：仅在当前网页会话下有效，关闭页面或浏览器后就会被清除</li>
-<li>存放数据： Cookie：4k 左右 Localstorage 和 sessionstorage：可以保存 5M 的信息</li>
-<li>http 请求： Cookie：每次都会携带在 http 头中，如果使用 cookie 保存过多数据会带来性能问题 其他两个：仅在客户端即浏览器中保存，不参与和服务器的通信</li>
-<li>易用性： Cookie：需要程序员自己封装，原生的 cookie 接口不友好 其他两个：即可采用原生接口，亦可再次封装</li>
-<li>应用场景： 从安全性来说，因为每次 http 请求都回携带 cookie 信息，这样子浪费了带宽，所以 cookie 应该尽可能的少用，此外 cookie 还需要指定作用域，不可以跨域调用，限制很多，但是 用户识别用户登陆来说，cookie 还是比 storage 好用，其他情况下可以用 storage，localstorage 可以用来在页面传递参数，sessionstorage 可以用来保存一些临时的数据，防止用户刷新 页面后丢失了一些参数。</li>
-</ol>
+<h3 id="宏任务-macrotasks（宿主环境（浏览器-node）提供的一些-webapi）"><a href="#宏任务-macrotasks（宿主环境（浏览器-node）提供的一些-webapi）" class="headerlink" title="宏任务 macrotasks（宿主环境（浏览器/node）提供的一些 webapi）"></a>宏任务 macrotasks（宿主环境（浏览器/node）提供的一些 webapi）</h3><ul>
+<li>script(整体代码)</li>
+<li>setTimeout/setInterval</li>
+<li>setImmediate（node 环境提供的）</li>
+<li>I/O</li>
+<li>UI rendering</li>
+<li>event listner</li>
+</ul>
+<h3 id="执行顺序"><a href="#执行顺序" class="headerlink" title="执行顺序"></a>执行顺序</h3><p>首先执行 js 整体代码这个宏任务，同步代码会依次执行，过程中有微任务或者宏任务都会放到对应的任务队列中。<br>然后将微任务队列中的微任务全部取出执行。<br>最后去宏任务队列中取一个任务执行，结束后会监测微任务队列中有没有待执行的任务。</p>
+<h3 id="易混的概念"><a href="#易混的概念" class="headerlink" title="易混的概念"></a>易混的概念</h3><ul>
+<li>new Promise（）中的处理器函数是同步执行（上面的 promise1）,但是.then()是异步函数会放到微任务队列中</li>
+<li>async 函数中如果没有 await 执行起来和普通的函数一样</li>
+<li>await 后面的代码会同步执行完成。然后会让出线程，阻塞 async 内后续的代码，去执行 async 外的代码，等外面的同步代码执行完成，才会执行 async 中 await 后续的代码</li>
+</ul>
 
             </div>
             <hr>
@@ -282,18 +285,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">异步任务执行顺序</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/30/http%E7%9B%B8%E5%85%B3%E6%80%BB%E7%BB%93/">
-                        <span class="hidden-mobile">http相关总结</span>
+                      <a href="/2021/03/31/%E9%9D%A2%E8%AF%95%E9%A2%98%E6%A2%B3%E7%90%86/">
+                        <span class="hidden-mobile">面试题梳理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
