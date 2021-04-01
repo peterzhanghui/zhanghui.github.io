@@ -1,6 +1,6 @@
 ---
 title: promise控制并发数量
-categories: 前端开发 面试题
+categories: 前端开发
 tags:
   - js
   - 面试题
