@@ -74,6 +74,8 @@ date: 2019-02-26 16:43:26
 
 ## 用纯 CSS 创建一个三角形？
 
+### 带有背景色的
+
 ```
 /*
   采用的是相邻边框链接处的均分原理
@@ -86,6 +88,40 @@ date: 2019-02-26 16:43:26
   border-width: 20px;
   border-style: solid;
   border-color: transparent transparent red transparent;
+}
+
+```
+
+### 画一个只有边框的三角形
+
+实现方式就是在上面的基础上再加一个小一号的三角形块通过定位，遮罩住部分，最终显示为有边框的三角形
+
+```
+span {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin-left: -100px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 100px 100px 100px;
+    border-color: transparent transparent #362a98 transparent;
+}
+span i {
+    position: absolute;
+    left: -96px;
+    top: 2px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 96px 96px 96px;
+    border-color: transparent transparent #eee transparent;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+span i:hover {
+    border-color: transparent transparent #362a98 transparent;
 }
 
 ```
@@ -349,3 +385,12 @@ dpr = 物理像素 / css 像素 在 dpr = 2；
 
 请勿使用在非动画元素。
 在 will-change 元素上使用时，浏览器将尝试通过将元素移到新层并将转换移交给 GPU 来对其进行优化。如果您没有任何要转换的内容，则会导致资源浪费。
+
+## div 元素使用 display:inline-block 后元素中间还是有空格
+
+引发的原因就是 我们编辑 html 的时候代码会格式化换行，所以浏览器在解析的时候就会展示出来
+解决方案：
+
+- 把换行和中间的空格都去掉（影响代码可读性）
+- 使用 float
+- 给外部的父元素添加 font-size： 0；

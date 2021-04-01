@@ -34,6 +34,10 @@ function newFunction() {
 
 ```
 
+### new.target
+
+而 new.target 是个新加入的语 法，用于判断函数是否是被 new 调用
+
 ## bind
 
 ```
