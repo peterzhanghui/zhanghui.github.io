@@ -303,6 +303,49 @@ date: 2019-02-26 16:43:26
 
 ## 移动端适配 1px 的问题 （待做）
 
+dpr = 物理像素 / css 像素 在 dpr = 2；
+1px 的 css 像素在设备中是 2px 的物理像素，这会导致在设备上看上去 1px 的边框是 2px
+解决方法： 用 transfrom： scale（）缩小 dpr 倍数 在 meta 标签中设定 scale 缩小两倍
+
 ## content-visibility: auto
 
 使用 content-visibility 可以跳过渲染屏幕之外的内容
+
+## will-change
+
+目前，主流浏览器一般根据 position、transform 等属性来决定合成策略，来“猜测”这些元素未来可能发生变化
+使用 will-change，可以提示浏览器说明元素可能会有变化，这样浏览器就可以给他单独生成一个位图，可以提升合成策略的效果。
+浏览器将为元素创建一个单独的层。之后，它将元素的渲染与其他优化一起委派给 GPU。随着 GPU 加速接管动画的渲染，这将使动画更加流畅。
+
+```
+//在样式表中
+.animating-element{
+  will-change：opacity;
+}
+//在HTML中
+<div class =“ animating-elememt”>
+  动画子元素
+</ div>
+
+```
+
+在浏览器中呈现以上代码段时，它将识别该 will-change 属性并优化将来与不透明度相关的更改。
+
+### 什么时候不使用
+
+虽然 will-change 是为了提高性能，它也可以，如果你滥用它降低了网络应用性能。
+使用 will-change 表示该元素将来会更改。
+因此，如果您尝试同时使用 will-change 动画和动画，那么它不会给您带来优化。因此，建议在父元素上使用 will-change，在子元素上使用动画。
+
+```
+.my-class {
+  will-change：opacity;
+}
+.child-class {
+  过渡：不透明度1s缓入；
+}
+
+```
+
+请勿使用在非动画元素。
+在 will-change 元素上使用时，浏览器将尝试通过将元素移到新层并将转换移交给 GPU 来对其进行优化。如果您没有任何要转换的内容，则会导致资源浪费。
