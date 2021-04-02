@@ -64,3 +64,5 @@ var o = {valueOf : () => {console.log("valueOf"); return {}},toString : () => {c
 4. null 和 undefined 除了 null == undefined 为 true 其他都是 false （js 规范中提到，在比较相等性之前不能将 null 和 undefined 转化为其他值，并且规定两者相等，都表示无效的值）
 5. '' 和 [],表现一致，和数字和 false 比较都会转化为数字 0，结果为 true，其他为 false
 6. NaN 不管是不是全等和自身相比都为 false
+
+代码中如果是字符串和数字的判断可以使用 == 来判断，如果涉及到类型不明确的数据建议类型转换加 === 判断

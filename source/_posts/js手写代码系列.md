@@ -81,3 +81,42 @@ funciton(obj){
 ```
 
 这个函数无法做到与原生的 Object.create 一致，一个是不支持第二个参数，另一个是不支持 null 作为原型
+
+## 数组扁平化 flat
+
+### 使用 flat
+
+```
+let result = arr.flat(Infinity);
+```
+
+### 使用递归的方法
+
+```
+有一个多维数组
+var arr=[1,2,3,[4,5],[6,[7,[8]]]]
+处理后转为一维数组
+
+var arr = [1, 2, 3, [4, 5], [6, [7, [8]]]];
+
+function myFlat() {
+    let result = [];
+    return function flat(arr) {
+        if (arr instanceof Array) {
+            if (arr.length === 0) return [];
+            for (let item of arr) {
+                if (item instanceof Array) {
+                    // myFlat(item)
+                    result.concat(flat(item))
+                } else {
+                    result.push(item)
+                }
+            }
+        }
+        return result;
+    }
+}
+
+console.log(myFlat()(arr));
+
+```

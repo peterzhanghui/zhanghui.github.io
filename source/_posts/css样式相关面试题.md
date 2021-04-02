@@ -161,6 +161,23 @@ span i:hover {
 - 多列布局 (column-count: 3;容器分三列布局，一般用于 平板电脑等 宽屏上的文章布局)
 - 网格布局 （grid）
 
+## 介绍下 BFC 及其应用
+
+BFC 就是块级格式上下文，是页面盒模型布局中的一种 CSS 渲染模式，相当于 一个独立的容器，里面的元素和外部的元素相互不影响
+
+### 创建 BFC 的方式有
+
+- html 根元素
+- float 浮动
+- 绝对定位
+- overflow 不为 visiable
+- display 为表格布局或者弹性布局
+
+### BFC 主要的作用是
+
+- 清除浮动
+- 防止同一 BFC 容器中的相邻元素间的外边距重叠问题
+
 ## 经典布局方案
 
 左右固定，中间自适应
@@ -342,6 +359,13 @@ span i:hover {
 dpr = 物理像素 / css 像素 在 dpr = 2；
 1px 的 css 像素在设备中是 2px 的物理像素，这会导致在设备上看上去 1px 的边框是 2px
 解决方法： 用 transfrom： scale（）缩小 dpr 倍数 在 meta 标签中设定 scale 缩小两倍
+
+Retina 屏 1px 像素问题
+
+1. 伪元素 + transform scaleY(.5)
+2. border-image
+3. background-image
+4. box-shadow
 
 ## content-visibility: auto
 
