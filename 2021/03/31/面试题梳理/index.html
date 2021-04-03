@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      896 字
+      1.2k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      13
        分钟
     </span>
   
@@ -256,7 +256,26 @@
 <li>Object.defineProperty 只能劫持对象的属性，从而需要对每个对象，每个 属性进行遍历，如果，属性值是对象，还需要深度遍历。Proxy 可以劫持整个对 象，并返回一个新的对象。</li>
 <li>Proxy 不仅可以代理对象，还可以代理数组。还可以代理动态增加的属性</li>
 </ul>
-<h2 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h2><h2 id="compted-和-watch-的区别"><a href="#compted-和-watch-的区别" class="headerlink" title="compted 和 watch 的区别"></a>compted 和 watch 的区别</h2><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2>
+<h2 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h2><h2 id="compted-和-watch-的区别"><a href="#compted-和-watch-的区别" class="headerlink" title="compted 和 watch 的区别"></a>compted 和 watch 的区别</h2><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h2 id="Vue-的父组件和子组件生命周期钩子执行顺序是什么"><a href="#Vue-的父组件和子组件生命周期钩子执行顺序是什么" class="headerlink" title="Vue 的父组件和子组件生命周期钩子执行顺序是什么"></a>Vue 的父组件和子组件生命周期钩子执行顺序是什么</h2><ol>
+<li>父组建： beforeCreate -&gt; created -&gt; beforeMount</li>
+<li>子组件： -&gt; beforeCreate -&gt; created -&gt; beforeMount -&gt; mounted</li>
+<li>父组件： -&gt; mounted</li>
+<li>总结：从外到内，再从内到外</li>
+</ol>
+<h2 id="React-和-Vue-的-diff-时间复杂度从-O-n-3-优化-到-O-n-，那么-O-n-3-和-O-n-是如何计算出来的？"><a href="#React-和-Vue-的-diff-时间复杂度从-O-n-3-优化-到-O-n-，那么-O-n-3-和-O-n-是如何计算出来的？" class="headerlink" title="React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？"></a>React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？</h2><p>三种优化来降低复杂度：</p>
+<ol>
+<li>如果父节点不同，放弃对子节点的比较，直接删除旧节点然后添加新的 节点重新渲染；</li>
+<li>如果子节点有变化，Virtual DOM 不会计算变化的是什么，而是重新渲染，</li>
+<li>通过唯一的 key 策略</li>
+</ol>
+<h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><h2 id="介绍下-webpack-热更新原理，是如何做到在不刷新-浏览器的前提下更新页面的"><a href="#介绍下-webpack-热更新原理，是如何做到在不刷新-浏览器的前提下更新页面的" class="headerlink" title="介绍下 webpack 热更新原理，是如何做到在不刷新 浏览器的前提下更新页面的"></a>介绍下 webpack 热更新原理，是如何做到在不刷新 浏览器的前提下更新页面的</h2><ol>
+<li>当修改了一个或多个文件；</li>
+<li>文件系统接收更改并通知 webpack；</li>
+<li>webpack 重新编译构建一个或多个模块，并通知 HMR 服务器进行更新；</li>
+<li>HMR Server 使用 webSocket 通知 HMR runtime 需要更新，HMR 运行时 通过 HTTP 请求更新 jsonp；</li>
+<li>HMR 运行时替换更新中的模块，如果确定这些模块无法更新，则触发整 个页面刷新。</li>
+</ol>
+
             </div>
             <hr>
             <div>
