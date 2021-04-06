@@ -80,6 +80,21 @@ funciton(obj){
 
 ```
 
+## instanceof
+
+```
+function _instanceof(left, right) {
+  var prototype = right.prototype;
+  var proto = left.__proto__;
+  while (true) {
+    if (proto === null) return false;
+    if (proto === prototype) return true;
+    proto = proto.__proto__;
+  }
+}
+
+```
+
 这个函数无法做到与原生的 Object.create 一致，一个是不支持第二个参数，另一个是不支持 null 作为原型
 
 ## 数组扁平化 flat
