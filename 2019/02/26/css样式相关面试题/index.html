@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.3k 字
+      2.4k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      30
+      32
        分钟
     </span>
   
@@ -252,7 +252,8 @@
 <ol>
 <li> 子元素添加 clear 属性</li>
 </ol>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.clearfix</span> &#123;<br>  <span class="hljs-attribute">zoom</span>: <span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-selector-class">.clearfix</span><span class="hljs-selector-pseudo">:after</span> &#123;<br>  <span class="hljs-attribute">display</span>: block;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">clear</span>: both;<br>  <span class="hljs-attribute">visibility</span>: hidden;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot;.&quot;</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>实现的思路就是给对应的 css 选择器添加伪类，既要把伪元素变成块元素，又不能让他展示出来影响页面布局</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.clearfix</span> &#123;<br>  *zoom: <span class="hljs-number">1</span>;<span class="hljs-comment">/*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/</span><br>&#125;<br><br><span class="hljs-selector-class">.clearfix</span><span class="hljs-selector-pseudo">:after</span> &#123;<br>  <span class="hljs-attribute">display</span>: block;       <span class="hljs-comment">// 转化为块布局也可以设置为table，设置为行内块元素</span><br>  <span class="hljs-attribute">clear</span>: both;          <span class="hljs-comment">// 使用clear 清除浮动对元素的影响</span><br>  <span class="hljs-attribute">content</span>: <span class="hljs-string">&quot; &quot;</span>;         <span class="hljs-comment">// 添加一个内容</span><br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;            <span class="hljs-comment">// 把内容在页面隐藏</span><br>  <span class="hljs-attribute">visibility</span>: hidden;   <span class="hljs-comment">// 把内容在页面隐藏</span><br>  <span class="hljs-attribute">overflow</span>: hidden;     <span class="hljs-comment">// 把内容在页面隐藏</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
 <ol start="2">
 <li>父元素添加 overflow: hiden;触发浮动元素父元素的 BFC (Block Formatting Contexts, 块级格式化上下文)，使到该父元素可以包含浮动元素</li>
 </ol>
@@ -281,7 +282,7 @@
 <li>清除浮动</li>
 <li>防止同一 BFC 容器中的相邻元素间的外边距重叠问题</li>
 </ul>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="经典布局方案"><a href="#经典布局方案" class="headerlink" title="经典布局方案"></a>经典布局方案</h2><p>左右固定，中间自适应</p>
+<h2 id="经典布局方案"><a href="#经典布局方案" class="headerlink" title="经典布局方案"></a>经典布局方案</h2><p>左右固定，中间自适应</p>
 <ul>
 <li>圣杯布局</li>
 </ul>
@@ -341,8 +342,7 @@
 <ol>
 <li>伪元素 + transform scaleY(.5)</li>
 <li>border-image</li>
-<li>background-image</li>
-<li>box-shadow</li>
+<li>box-shadow: 0 0 1px red;</li>
 </ol>
 <h2 id="content-visibility-auto"><a href="#content-visibility-auto" class="headerlink" title="content-visibility: auto"></a>content-visibility: auto</h2><p>使用 content-visibility 可以跳过渲染屏幕之外的内容</p>
 <h2 id="will-change"><a href="#will-change" class="headerlink" title="will-change"></a>will-change</h2><p>目前，主流浏览器一般根据 position、transform 等属性来决定合成策略，来“猜测”这些元素未来可能发生变化<br>使用 will-change，可以提示浏览器说明元素可能会有变化，这样浏览器就可以给他单独生成一个位图，可以提升合成策略的效果。<br>浏览器将为元素创建一个单独的层。之后，它将元素的渲染与其他优化一起委派给 GPU。随着 GPU 加速接管动画的渲染，这将使动画更加流畅。</p>
