@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      160 字
+      1.1k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      11
        分钟
     </span>
   
@@ -230,9 +230,26 @@
               <blockquote>
 <p>总结一些 vue 相关的知识点</p>
 </blockquote>
-<h2 id="组件中-data-必须是一个函数？"><a href="#组件中-data-必须是一个函数？" class="headerlink" title="组件中 data 必须是一个函数？"></a>组件中 data 必须是一个函数？</h2><p>一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝：</p>
+<h2 id="组件中-data-必须是一个函数？"><a href="#组件中-data-必须是一个函数？" class="headerlink" title="组件中 data 必须是一个函数？"></a>组件中 data 必须是一个函数？</h2><p>一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝，这样各个实例中的 data 不会相互影响，是独立的</p>
 <h2 id="watch-监听-route-变化第一次不会执行"><a href="#watch-监听-route-变化第一次不会执行" class="headerlink" title="watch 监听$route 变化第一次不会执行"></a>watch 监听$route 变化第一次不会执行</h2><p>项目中我们需要根据动态路由传递的参数来请求数据，如果只方在 created 总组件切换不会请求，放到 watch 中第一次不会请求。解决方法可以给 watch 返回一个对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">watch : &#123;<br>    $route: &#123;<br>        immediate: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 加载立即触发</span><br>        <span class="hljs-function"><span class="hljs-title">handler</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;router变了&#x27;</span>)<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="计算属性-computed-和监听器-watch-都可以观察属性的变化从而做出响应，不同的是："><a href="#计算属性-computed-和监听器-watch-都可以观察属性的变化从而做出响应，不同的是：" class="headerlink" title="计算属性 computed 和监听器 watch 都可以观察属性的变化从而做出响应，不同的是："></a>计算属性 computed 和监听器 watch 都可以观察属性的变化从而做出响应，不同的是：</h2><p>计算属性 computed 更多是作为缓存功能的观察者，它可以将一个或者多个 data 的属性进行复杂的计算生成一个新的值，提供给渲染函数使用，当依赖的属性变化时，computed 不会立即重新计算生成新的值，而是先标记为脏数据，当下次 computed 被获取时候，才会进行重新计算并返回。</p>
+<p>而监听器 watch 并不具备缓存性，监听器 watch 提供一个监听函数，当监听的属性发生变化时，会立即执行该函数。</p>
+<h2 id="vue-中-key-值的作用"><a href="#vue-中-key-值的作用" class="headerlink" title="vue 中 key 值的作用"></a>vue 中 key 值的作用</h2><ol>
+<li>使用 key 来给每个节点做一个唯一标识，作用主要是为了高效的更新虚拟 DOM，其原理是 vue 在 patch 过程中通过 key 可以精准判断两个节点是否是同一个，从而避免频繁更新不同元素，使得整个 patch 过程更加高效，减少 DOM 操作量，提高性能。</li>
+<li>另外，若不设置 key 还可能在列表更新时引发一些隐蔽的 bug</li>
+<li>vue 中在使用相同标签名元素的过渡切换时，也会使用到 key 属性，其目的也是为了让 vue 可以区分它们，否则 vue 只会替换其内部属性而不会触发过渡效果</li>
+</ol>
+<h2 id="diff-算法"><a href="#diff-算法" class="headerlink" title="diff 算法"></a>diff 算法</h2><ol>
+<li>diff 算法是虚拟 DOM 技术的必然产物：通过新旧虚拟 DOM 作对比（即 diff），将变化的地方更新在真实 DOM 上；另外，也需要 diff 高效的执行对比过程，从而降低时间复杂度为 O(n)。</li>
+<li>vue 2.x 中为了降低 Watcher 粒度，每个组件只有一个 Watcher 与之对应，只有引入 diff 才能精确找到发生变化的地方。</li>
+<li>vue 中 diff 执行的时刻是组件实例执行其更新函数时，它会比对上一次渲染结果 oldVnode 和新的渲染结果 newVnode，此过程称为 patch。</li>
+<li>diff 过程整体遵循深度优先、同层比较的策略；两个节点之间比较会根据它们是否拥有子节点或者文本节点做不同操作；比较两组子节点是算法的重点，首先假设头尾节点可能相同做 4 次比对尝试，如果没有找到相同节点才按照通用方式遍历查找，查找结束再按情况处理剩下的节点；借助 key 通常可以非常精确找到相同节点，因此整个 patch 过程非常高效</li>
+</ol>
+<h2 id="Vue-模板渲染的原理是什么？"><a href="#Vue-模板渲染的原理是什么？" class="headerlink" title="Vue 模板渲染的原理是什么？"></a>Vue 模板渲染的原理是什么？</h2><p>vue 中的模板 template 无法被浏览器解析并渲染，因为这不属于浏览器的标准，不是正确的 HTML 语法，所有需要将 template 转化成一个 JavaScript 函数，这样浏览器就可以执行这一个函数并渲染出对应的 HTML 元素，就可以让视图跑起来了，这一个转化的过程，就称为模板编译。</p>
+<p>模板编译又分三个阶段，解析 parse，优化 optimize，生成 generate，最终生成可执行函数 render。</p>
+<p>parse 阶段：使用大量的正则表达式对 template 字符串进行解析，将标签、指令、属性等转化为抽象语法树 AST。<br>optimize 阶段：遍历 AST，找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行 diff 比较时，直接跳过这一些静态节点，优化 runtime 的性能。<br>generate 阶段：将最终的 AST 转化为 render 函数字符串。</p>
+
             </div>
             <hr>
             <div>
