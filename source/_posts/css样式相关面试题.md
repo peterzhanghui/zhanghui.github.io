@@ -420,3 +420,52 @@ Retina 屏 1px 像素问题
 - 把换行和中间的空格都去掉（影响代码可读性）
 - 使用 float
 - 给外部的父元素添加 font-size： 0；
+
+## 网站主题切换实现 灰色模式（悼念模式），日间模式，暗黑模式
+
+### 最简单的做法就是给 html 直接设置滤镜效果 filter
+
+日间模式就正常页面样式
+灰色模式 ：（灰度 100%）
+filter: grayscale(1);
+暗黑模式：
+filter: invert(1) hue-rotate(180deg);
+
+invert()：反相，反向输出图像着色（白变黑）
+
+### prefers-color-scheme
+
+prefers-color-scheme CSS 媒体特性用于检测用户是否有将系统的主题色设置为亮色(light)或者暗色(dark)
+
+```
+@media (prefers-color-scheme: dark) {
+  .day.dark-scheme   { background:  #333; color: white; }
+  .night.dark-scheme { background: black; color:  #ddd; }
+}
+
+@media (prefers-color-scheme: light) {
+  .day.light-scheme   { background: white; color:  #555; }
+  .night.light-scheme { background:  #eee; color: black; }
+}
+
+```
+
+## css 定义全局变量
+
+```
+//定义
+:root{
+   --theme-color:red;
+}
+
+//使用的时候
+#app{
+    background-color:var(--theme-color);
+}
+
+//假如我们没有指定--theme-color这个属性，则可以在使用的时候加上替代值
+#app{
+    background-color:var(--theme-color,black);
+}
+
+```
