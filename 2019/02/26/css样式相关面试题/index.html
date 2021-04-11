@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.7k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      35
        分钟
     </span>
   
@@ -357,7 +357,11 @@
 <li>使用 float</li>
 <li>给外部的父元素添加 font-size： 0；</li>
 </ul>
-
+<h2 id="网站主题切换实现-灰色模式（悼念模式），日间模式，暗黑模式"><a href="#网站主题切换实现-灰色模式（悼念模式），日间模式，暗黑模式" class="headerlink" title="网站主题切换实现 灰色模式（悼念模式），日间模式，暗黑模式"></a>网站主题切换实现 灰色模式（悼念模式），日间模式，暗黑模式</h2><h3 id="最简单的做法就是给-html-直接设置滤镜效果-filter"><a href="#最简单的做法就是给-html-直接设置滤镜效果-filter" class="headerlink" title="最简单的做法就是给 html 直接设置滤镜效果 filter"></a>最简单的做法就是给 html 直接设置滤镜效果 filter</h3><p>日间模式就正常页面样式<br>灰色模式 ：（灰度 100%）<br>filter: grayscale(1);<br>暗黑模式：<br>filter: invert(1) hue-rotate(180deg);</p>
+<p>invert()：反相，反向输出图像着色（白变黑）</p>
+<h3 id="prefers-color-scheme"><a href="#prefers-color-scheme" class="headerlink" title="prefers-color-scheme"></a>prefers-color-scheme</h3><p>prefers-color-scheme CSS 媒体特性用于检测用户是否有将系统的主题色设置为亮色(light)或者暗色(dark)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">prefers-color-scheme:</span> dark) &#123;<br>  <span class="hljs-selector-class">.day</span><span class="hljs-selector-class">.dark-scheme</span>   &#123; <span class="hljs-attribute">background</span>:  <span class="hljs-number">#333</span>; <span class="hljs-attribute">color</span>: white; &#125;<br>  <span class="hljs-selector-class">.night</span><span class="hljs-selector-class">.dark-scheme</span> &#123; <span class="hljs-attribute">background</span>: black; <span class="hljs-attribute">color</span>:  <span class="hljs-number">#ddd</span>; &#125;<br>&#125;<br><br><span class="hljs-keyword">@media</span> (<span class="hljs-attribute">prefers-color-scheme:</span> light) &#123;<br>  <span class="hljs-selector-class">.day</span><span class="hljs-selector-class">.light-scheme</span>   &#123; <span class="hljs-attribute">background</span>: white; <span class="hljs-attribute">color</span>:  <span class="hljs-number">#555</span>; &#125;<br>  <span class="hljs-selector-class">.night</span><span class="hljs-selector-class">.light-scheme</span> &#123; <span class="hljs-attribute">background</span>:  <span class="hljs-number">#eee</span>; <span class="hljs-attribute">color</span>: black; &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="css-定义全局变量"><a href="#css-定义全局变量" class="headerlink" title="css 定义全局变量"></a>css 定义全局变量</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs css">//定义<br><span class="hljs-selector-pseudo">:root</span>&#123;<br>   <span class="hljs-attribute">--theme-color</span>:red;<br>&#125;<br><br>//使用的时候<br><span class="hljs-selector-id">#app</span>&#123;<br>    <span class="hljs-attribute">background-color</span>:<span class="hljs-built_in">var</span>(--theme-color);<br>&#125;<br><br>//假如我们没有指定<span class="hljs-selector-tag">--theme-color</span>这个属性，则可以在使用的时候加上替代值<br><span class="hljs-selector-id">#app</span>&#123;<br>    <span class="hljs-attribute">background-color</span>:<span class="hljs-built_in">var</span>(--theme-color,black);<br>&#125;<br><br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
