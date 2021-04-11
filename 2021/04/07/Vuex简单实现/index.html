@@ -17,7 +17,7 @@
   <meta name="description" content="前端嘉嘉的博客，主要分享前端技术相关的文章，欢迎各位大佬不吝赐教">
   <meta name="author" content="前端嘉嘉">
   <meta name="keywords" content="前端开发，前端技术，前端博客，前端技术博客">
-  <title>Vuex简单实现 - 前端嘉嘉的博客</title>
+  <title>Vuex - 前端嘉嘉的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vuex简单实现">
+            <span class="h2" id="subtitle" title="Vuex">
               
             </span>
 
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      345 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -224,10 +224,18 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vuex简单实现</h1>
+            <h1 style="display: none">Vuex</h1>
             
             <div class="markdown-body">
-              
+              <blockquote>
+<p>Vuex 是专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态。Vuex 和单纯的全局对象主要有两点不同，一 Vuex 的状态存储是响应式的。你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。</p>
+</blockquote>
+<h2 id="Vuex-的持久化处理"><a href="#Vuex-的持久化处理" class="headerlink" title="Vuex 的持久化处理"></a>Vuex 的持久化处理</h2><p>使用 Vuex 的插件 vuex-persist <a target="_blank" rel="noopener" href="https://github.com/championswimmer/vuex-persist#tips-for-nuxt">github 连接</a>文中有详细教程不在赘述，主要说一下在 nuxt.js 中的配置</p>
+<p>按照官网的教程新建 plugins 配置后，需要在配置 Vuex 的 store 文件夹 的 index.js 添加 插件配置。最总就可以实现持久化缓存了。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> VuexPersistence <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex-persist&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> plugins = [<span class="hljs-keyword">new</span> VuexPersistence().plugin];<br></code></pre></td></tr></table></figure>
+<h2 id="nuxt-js-使用-nuxtServerInit-获取组件数据"><a href="#nuxt-js-使用-nuxtServerInit-获取组件数据" class="headerlink" title="nuxt.js 使用 nuxtServerInit 获取组件数据"></a>nuxt.js 使用 nuxtServerInit 获取组件数据</h2><p>运行在服务端，都能帮助我们在页面渲染（组件加载 ）前操作 store。当我们想将服务端的一些数据传到客户端时，这个方法是灰常好用的。</p>
+<p>使用方法示例，具体可以结合自己业务需要处理相关数据</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> actions = &#123;<br>    <span class="hljs-function"><span class="hljs-title">nuxtServerInit</span>(<span class="hljs-params">&#123; commit &#125;, &#123; req &#125;</span>)</span> &#123;<br>        <span class="hljs-keyword">let</span> cookie = req.headers.cookie;<br>        <span class="hljs-keyword">if</span> (cookie) &#123;<br>            cookie.split(<span class="hljs-string">&#x27;;&#x27;</span>).map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;<br>                <span class="hljs-keyword">if</span> (item.split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">0</span>].trim() === <span class="hljs-string">&#x27;token&#x27;</span>) &#123;<br>                    <span class="hljs-keyword">let</span> token = item.split(<span class="hljs-string">&#x27;=&#x27;</span>)[<span class="hljs-number">1</span>];<br>                    commit(<span class="hljs-string">&#x27;setToken&#x27;</span>, token);<br>                &#125;<br>            &#125;)<br>        &#125;<br>    &#125;,<br>&#125;;<br><br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
