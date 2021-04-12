@@ -111,8 +111,14 @@ Action 类似于 mutation，不同的是 action 提交的是 mutation，不是 �
 
 3. cacheHandlers 事件侦听器缓存 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的 变化但是因为是同一个函数，所以没有追踪变化，直接缓存起来复用 即可。
 
+## async 和 defer 两者区别：
+
+- 当 script 中有 defer 属性时，脚本的加载过程和文档加载是异步发生的，等到文档解析完(DOMContentLoaded 事件发生)脚本才开始执行。
+
+- 当 script 有 async 属性时，脚本的加载过程和文档加载也是异步发生的。但脚本下载完成后会停止 HTML 解析，执行脚本，脚本解析完继续 HTML 解析。
+
+- 当 script 同时有 async 和 defer 属性时，执行效果和 async 一致。
+
 ## nuxt.js （待做）
 
 ## webpack （待做）
-
-## vue-router （待做）
