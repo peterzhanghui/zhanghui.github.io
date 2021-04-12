@@ -36,7 +36,7 @@ function newFunction() {
 
 ### new.target
 
-而 new.target 是个新加入的语 法，用于判断函数是否是被 new 调用
+new 是从构造函数生成实例的命令。ES6 为 new 命令引入了一个 new.target 属性，（在构造函数中）返回 new 命令作用于的那个构造函数。如果构造函数不是通过 new 命令调用的，new.target 会返回 undefined，因此这个属性可以用来确定构造函数是怎么调用的
 
 ## bind
 
