@@ -135,3 +135,7 @@ function myFlat() {
 console.log(myFlat()(arr));
 
 ```
+
+## async await
+
+## promise.all()

@@ -20,6 +20,8 @@ date: 2021-03-31 00:15:40
 
 ## HTTPS
 
+[参考文章](https://blog.csdn.net/xiaoming100001/article/details/81109617)
+
 HTTPS 有两个作用，一是确定请求的目标服务端身份，二是保证传输的数据不会被网络中间节点窃听或者篡改。
 HTTPS 是使用加密通道来传输 HTTP 的内容。但是 HTTPS 首先与服务端建立一条 TLS 加密通道。TLS 构建于 TCP 协议之上，它实际上是对传输的内容做一次加密，所以从传输内容上看，HTTPS 跟 HTTP 没有任何区别
 

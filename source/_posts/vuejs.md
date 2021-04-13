@@ -53,3 +53,27 @@ vue 中的模板 template 无法被浏览器解析并渲染，因为这不属于
 parse 阶段：使用大量的正则表达式对 template 字符串进行解析，将标签、指令、属性等转化为抽象语法树 AST。
 optimize 阶段：遍历 AST，找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行 diff 比较时，直接跳过这一些静态节点，优化 runtime 的性能。
 generate 阶段：将最终的 AST 转化为 render 函数字符串。
+
+## mvvm
+
+## nextTick
+
+在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM
+源码实现延迟调用优先级是：Promise > setImmediate > MessageChannel > setTimeout
+
+```
+// 修改数据
+vm.msg = 'Hello'
+// DOM 还没有更新
+Vue.nextTick(function () {
+  // DOM 更新了
+})
+
+// 作为一个 Promise 使用 (2.1.0 起新增，详见接下来的提示)
+Vue.nextTick()
+  .then(function () {
+    // DOM 更新了
+  })
+
+
+```
