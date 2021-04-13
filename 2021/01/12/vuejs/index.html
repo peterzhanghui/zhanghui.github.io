@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.2k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      13
        分钟
     </span>
   
@@ -249,7 +249,8 @@
 <h2 id="Vue-模板渲染的原理是什么？"><a href="#Vue-模板渲染的原理是什么？" class="headerlink" title="Vue 模板渲染的原理是什么？"></a>Vue 模板渲染的原理是什么？</h2><p>vue 中的模板 template 无法被浏览器解析并渲染，因为这不属于浏览器的标准，不是正确的 HTML 语法，所有需要将 template 转化成一个 JavaScript 函数，这样浏览器就可以执行这一个函数并渲染出对应的 HTML 元素，就可以让视图跑起来了，这一个转化的过程，就称为模板编译。</p>
 <p>模板编译又分三个阶段，解析 parse，优化 optimize，生成 generate，最终生成可执行函数 render。</p>
 <p>parse 阶段：使用大量的正则表达式对 template 字符串进行解析，将标签、指令、属性等转化为抽象语法树 AST。<br>optimize 阶段：遍历 AST，找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行 diff 比较时，直接跳过这一些静态节点，优化 runtime 的性能。<br>generate 阶段：将最终的 AST 转化为 render 函数字符串。</p>
-
+<h2 id="mvvm"><a href="#mvvm" class="headerlink" title="mvvm"></a>mvvm</h2><h2 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h2><p>在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM<br>源码实现延迟调用优先级是：Promise &gt; setImmediate &gt; MessageChannel &gt; setTimeout</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 修改数据</span><br>vm.msg = &#x27;Hello&#x27;<br><span class="hljs-comment">// DOM 还没有更新</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>next<span class="hljs-constructor">Tick(<span class="hljs-params">function</span> ()</span> &#123;<br>  <span class="hljs-comment">// DOM 更新了</span><br>&#125;)<br><br><span class="hljs-comment">// 作为一个 Promise 使用 (2.1.0 起新增，详见接下来的提示)</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>next<span class="hljs-constructor">Tick()</span><br>  .<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> <span class="hljs-literal">()</span> &#123;<br>    <span class="hljs-comment">// DOM 更新了</span><br>  &#125;)<br><br><br></code></pre></td></tr></table></figure>
             </div>
             <hr>
             <div>
