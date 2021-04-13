@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.6k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      17
        分钟
     </span>
   
@@ -230,7 +230,7 @@
               <blockquote>
 <p>总结一些 vue 相关的知识点</p>
 </blockquote>
-<h2 id="组件中-data-必须是一个函数？"><a href="#组件中-data-必须是一个函数？" class="headerlink" title="组件中 data 必须是一个函数？"></a>组件中 data 必须是一个函数？</h2><p>一个组件的 data 选项必须是一个函数，因此每个实例可以维护一份被返回对象的独立的拷贝，这样各个实例中的 data 不会相互影响，是独立的</p>
+<h2 id="组件中-data-必须是一个函数？"><a href="#组件中-data-必须是一个函数？" class="headerlink" title="组件中 data 必须是一个函数？"></a>组件中 data 必须是一个函数？</h2><p>Data 是一个函数时，每个组件实例都有自己的作用域，每个实例相互独 立，不会相互影响如果是引用类型（对象），当多个组件共用一个数据源时，一处数据改变， 所有的组件数据都会改变，所以要利用函数通过 return 返回对象的拷贝， （返回一个新数据），让每个实例都有自己的作用域，相互不影响。</p>
 <h2 id="watch-监听-route-变化第一次不会执行"><a href="#watch-监听-route-变化第一次不会执行" class="headerlink" title="watch 监听$route 变化第一次不会执行"></a>watch 监听$route 变化第一次不会执行</h2><p>项目中我们需要根据动态路由传递的参数来请求数据，如果只方在 created 总组件切换不会请求，放到 watch 中第一次不会请求。解决方法可以给 watch 返回一个对象</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript">watch : &#123;<br>    $route: &#123;<br>        immediate: <span class="hljs-literal">true</span>, <span class="hljs-comment">// 加载立即触发</span><br>        <span class="hljs-function"><span class="hljs-title">handler</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;router变了&#x27;</span>)<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="计算属性-computed-和监听器-watch-都可以观察属性的变化从而做出响应，不同的是："><a href="#计算属性-computed-和监听器-watch-都可以观察属性的变化从而做出响应，不同的是：" class="headerlink" title="计算属性 computed 和监听器 watch 都可以观察属性的变化从而做出响应，不同的是："></a>计算属性 computed 和监听器 watch 都可以观察属性的变化从而做出响应，不同的是：</h2><p>计算属性 computed 更多是作为缓存功能的观察者，它可以将一个或者多个 data 的属性进行复杂的计算生成一个新的值，提供给渲染函数使用，当依赖的属性变化时，computed 不会立即重新计算生成新的值，而是先标记为脏数据，当下次 computed 被获取时候，才会进行重新计算并返回。</p>
@@ -251,6 +251,16 @@
 <p>parse 阶段：使用大量的正则表达式对 template 字符串进行解析，将标签、指令、属性等转化为抽象语法树 AST。<br>optimize 阶段：遍历 AST，找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行 diff 比较时，直接跳过这一些静态节点，优化 runtime 的性能。<br>generate 阶段：将最终的 AST 转化为 render 函数字符串。</p>
 <h2 id="mvvm"><a href="#mvvm" class="headerlink" title="mvvm"></a>mvvm</h2><h2 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h2><p>在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM<br>源码实现延迟调用优先级是：Promise &gt; setImmediate &gt; MessageChannel &gt; setTimeout</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 修改数据</span><br>vm.msg = &#x27;Hello&#x27;<br><span class="hljs-comment">// DOM 还没有更新</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>next<span class="hljs-constructor">Tick(<span class="hljs-params">function</span> ()</span> &#123;<br>  <span class="hljs-comment">// DOM 更新了</span><br>&#125;)<br><br><span class="hljs-comment">// 作为一个 Promise 使用 (2.1.0 起新增，详见接下来的提示)</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>next<span class="hljs-constructor">Tick()</span><br>  .<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> <span class="hljs-literal">()</span> &#123;<br>    <span class="hljs-comment">// DOM 更新了</span><br>  &#125;)<br><br><br></code></pre></td></tr></table></figure>
+<h2 id="Vue-双数据绑定过程中，这边儿数据改变了怎么通知另一边"><a href="#Vue-双数据绑定过程中，这边儿数据改变了怎么通知另一边" class="headerlink" title="Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边"></a>Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边</h2><p>改变数据劫持和观察者模式 Vue 数据双向绑定是通过数据劫持和观察者模式来实现的， 数据劫持，object.defineproperty 它的目的是：当给属性赋值的时候，程序可以感知到，就可以控制属性值的有效范围，可以改变其他属性的 值观察者模式它的目的是当属性发生改变的时候，使用该数据的地方也发 生改变</p>
+<h2 id="Vue3-0-是如何变得更快的？（底层，源码）"><a href="#Vue3-0-是如何变得更快的？（底层，源码）" class="headerlink" title="Vue3.0 是如何变得更快的？（底层，源码）"></a>Vue3.0 是如何变得更快的？（底层，源码）</h2><ol>
+<li><p>diff 方法优化 Vue2.x 中的虚拟 dom 是进行全量的对比。</p>
+</li>
+<li><p>Vue3.0 中新增了静态标记（PatchFlag）：在与上次虚拟结点进行对 比的时候，值对比带有 patch flag 的节点，并且可以通过 flag 的信息 得知当前节点要对比的具体内容化。hoistStatic 静态提升 Vue2.x : 无论元素是否参与更新，每次都会重新创建。 Vue3.0 : 对不参与更新的元素，只会被创建一次，之后会在每次渲染时 候被不停的复用。</p>
+</li>
+<li><p>cacheHandlers 事件侦听器缓存 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的 变化但是因为是同一个函数，所以没有追踪变化，直接缓存起来复用 即可。</p>
+</li>
+</ol>
+
             </div>
             <hr>
             <div>
