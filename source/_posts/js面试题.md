@@ -75,42 +75,6 @@ pending 初始状态也叫等待状态，fulfiled 成功状态，rejected 失败
 
 ### Promise 原理 （待做）
 
-## Vue 组件中的 data 为什么是函数
-
-Data 是一个函数时，每个组件实例都有自己的作用域，每个实例相互独 立，不会相互影响如果是引用类型（对象），当多个组件共用一个数据源时，一处数据改变， 所有的组件数据都会改变，所以要利用函数通过 return 返回对象的拷贝， （返回一个新数据），让每个实例都有自己的作用域，相互不影响。
-
-## Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边
-
-改变数据劫持和观察者模式 Vue 数据双向绑定是通过数据劫持和观察者模式来实现的， 数据劫持，object.defineproperty 它的目的是：当给属性赋值的时候，程序可以感知到，就可以控制属性值的有效范围，可以改变其他属性的 值观察者模式它的目的是当属性发生改变的时候，使用该数据的地方也发 生改变
-
-## Vuex 流程
-
-在 vue 组件里面，通过 dispatch 来触发 actions 提交修改数据的操作， 然后通过 actions 的 commit 触发 mutations 来修改数据，mutations 接收到 commit 的请求，就会自动通过 mutate 来修改 state，最后由 store 触发每一个调用它的组件的更新
-
-### vuex 的 State 特性是？
-
-State 就是数据源的存放地 State 里面的数据是响应式的，state 中的数据改变，对应这个数据的组 件也会发生改变 State 通过 mapstate 把全局的 state 和 getters 映射到当前组件的计算 属性中
-
-### vuex 的 Getter 特性是？
-
-Getter 可以对 state 进行计算操作，它就是 store 的计算属性 Getter 可以在多组件之间复用 如果一个状态只在一个组件内使用，可以不用 getters 51.vuex 的 Mutation 特性是？ 更改 vuex store 中修改状态的唯一办法就是提交 mutation，可以在回 调函数中修改 store 中的状态
-
-### vuex 的 actions 特性是？
-
-Action 类似于 mutation，不同的是 action 提交的是 mutation，不是 直接变更状态，可以包含任意异步操作
-
-### vuex 的优势
-
-优点：解决了非父子组件的通信，减少了 ajax 请求次数，有些可以直接 从 state 中获取 缺点：刷新浏览器，vuex 中的 state 会重新变为初始状态，解决办法是 vuex-along，得配合计算属性和 sessionstorage 来实现
-
-## Vue3.0 是如何变得更快的？（底层，源码）
-
-1. diff 方法优化 Vue2.x 中的虚拟 dom 是进行全量的对比。
-
-2. Vue3.0 中新增了静态标记（PatchFlag）：在与上次虚拟结点进行对 比的时候，值对比带有 patch flag 的节点，并且可以通过 flag 的信息 得知当前节点要对比的具体内容化。hoistStatic 静态提升 Vue2.x : 无论元素是否参与更新，每次都会重新创建。 Vue3.0 : 对不参与更新的元素，只会被创建一次，之后会在每次渲染时 候被不停的复用。
-
-3. cacheHandlers 事件侦听器缓存 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的 变化但是因为是同一个函数，所以没有追踪变化，直接缓存起来复用 即可。
-
 ## async 和 defer 两者区别：
 
 - 当 script 中有 defer 属性时，脚本的加载过程和文档加载是异步发生的，等到文档解析完(DOMContentLoaded 事件发生)脚本才开始执行。
