@@ -31,7 +31,7 @@ Action 类似于 mutation，不同的是 action 提交的是 mutation，不是 �
 
 使用 Vuex 的插件 vuex-persist [github 连接](https://github.com/championswimmer/vuex-persist#tips-for-nuxt)文中有详细教程不在赘述，主要说一下在 nuxt.js 中的配置
 
-按照官网的教程新建 plugins 配置后，需要在配置 Vuex 的 store 文件夹 的 index.js 添加 插件配置。最总就可以实现持久化缓存了。
+按照官网的教程新建 plugins 配置后，需要在配置 Vuex 的 store 文件夹 的 index.js 添加 插件配置。最终就可以实现持久化缓存了。
 
 ```
 import VuexPersistence from 'vuex-persist';

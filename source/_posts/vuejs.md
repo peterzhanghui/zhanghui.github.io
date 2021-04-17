@@ -54,7 +54,7 @@ parse 阶段：使用大量的正则表达式对 template 字符串进行解析�
 optimize 阶段：遍历 AST，找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行 diff 比较时，直接跳过这一些静态节点，优化 runtime 的性能。
 generate 阶段：将最终的 AST 转化为 render 函数字符串。
 
-## mvvm
+## mvvm（待做）
 
 ## nextTick
 
@@ -89,3 +89,36 @@ Vue.nextTick()
 2. Vue3.0 中新增了静态标记（PatchFlag）：在与上次虚拟结点进行对 比的时候，值对比带有 patch flag 的节点，并且可以通过 flag 的信息 得知当前节点要对比的具体内容化。hoistStatic 静态提升 Vue2.x : 无论元素是否参与更新，每次都会重新创建。 Vue3.0 : 对不参与更新的元素，只会被创建一次，之后会在每次渲染时 候被不停的复用。
 
 3. cacheHandlers 事件侦听器缓存 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的 变化但是因为是同一个函数，所以没有追踪变化，直接缓存起来复用 即可。
+
+## vue 中的嵌套组件
+
+组件定义中一定要声明定义 name 属性
+
+## 按钮级别的权限设置，可以在利用自定义指令
+
+引用 vue 官方文档对自定义指令的说明
+
+> 需要对普通 DOM 元素进行底层操作，这时候就会用到自定义指令
+
+## Vue 的响应式原理中 Object.defineProperty
+
+为什么在 Vue3.0 采用了 Proxy，抛弃了 Object.defineProperty？
+
+- Object.defineProperty 无法监控到数组下标的变化，导致通过数组下标添 加元素，不能实时响应；
+- Object.defineProperty 只能劫持对象的属性，从而需要对每个对象，每个 属性进行遍历，如果，属性值是对象，还需要深度遍历。Proxy 可以劫持整个对 象，并返回一个新的对象。
+- Proxy 不仅可以代理对象，还可以代理数组。还可以代理动态增加的属性
+
+## Vue 的父组件和子组件生命周期钩子执行顺序是什么
+
+1. 父组建： beforeCreate -> created -> beforeMount
+2. 子组件： -> beforeCreate -> created -> beforeMount -> mounted
+3. 父组件： -> mounted
+4. 总结：从外到内，再从内到外
+
+## React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？
+
+三种优化来降低复杂度：
+
+1. 如果父节点不同，放弃对子节点的比较，直接删除旧节点然后添加新的 节点重新渲染；
+2. 如果子节点有变化，Virtual DOM 不会计算变化的是什么，而是重新渲染，
+3. 通过唯一的 key 策略
