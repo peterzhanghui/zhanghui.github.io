@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.6k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      17
        分钟
     </span>
   
@@ -239,7 +239,7 @@
 <h2 id="click-在-ios-上有-300ms-延迟，原因及如何解决？"><a href="#click-在-ios-上有-300ms-延迟，原因及如何解决？" class="headerlink" title="click 在 ios 上有 300ms 延迟，原因及如何解决？"></a>click 在 ios 上有 300ms 延迟，原因及如何解决？</h2><p>主要原因是 ios 有双击区域放大的功能，所以在第一次 click 后会监测 300ms 看会不会有第二次点击，但是对于只点击一次的操作会有慢了的错觉。</p>
 <ol>
 <li>粗暴型，禁用缩放 <meta name="viewport" content="width=device-width, user-scalable=no"></li>
-<li>利用 FastClick，其原理是： 检测到 touchend 事件后，立刻出发模拟 click 事件，并且把浏览器 300 毫秒之后真正出 发的事件给阻断掉</li>
+<li>利用 FastClick，其原理是： 检测到 touchend 事件后，立刻出发模拟 click 事件，并且把浏览器 300 毫秒之后真正触发的事件给阻断掉</li>
 </ol>
 <h2 id="cookie-和-session-的区别-localstorage-和-sessionstorage-的区别"><a href="#cookie-和-session-的区别-localstorage-和-sessionstorage-的区别" class="headerlink" title="cookie 和 session 的区别 localstorage 和 sessionstorage 的区别"></a>cookie 和 session 的区别 localstorage 和 sessionstorage 的区别</h2><p>Cookie 和 session 都可用来存储用户信息，cookie 存放于客户端，session 存放于服务器端， 因为 cookie 存放于客户端有可能被窃取，所以 cookie 一般用来存放不敏感的信息，比如 用户设置的网站主题(防止 xss 获取，可以设置 http-only 使用 https)，敏感的信息用 session 存储，比如用户的登陆信息，session 可以 存放于文件，数据库，内存中都可以，cookie 可以服务器端响应的时候设置，也可以客 户端通过 JS 设置<br>cookie 会在请求时在 http 首部发送给客户端，</p>
 <h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>cookie 一般在客户端有 大小限制，一般为 4K，</p>
@@ -250,24 +250,6 @@
 <li>易用性： Cookie：需要程序员自己封装，原生的 cookie 接口不友好 其他两个：即可采用原生接口，亦可再次封装</li>
 <li>应用场景： 从安全性来说，因为每次 http 请求都回携带 cookie 信息，这样子浪费了带宽，所以 cookie 应该尽可能的少用，此外 cookie 还需要指定作用域，不可以跨域调用，限制很多，但是 用户识别用户登陆来说，cookie 还是比 storage 好用，其他情况下可以用 storage，localstorage 可以用来在页面传递参数，sessionstorage 可以用来保存一些临时的数据，防止用户刷新 页面后丢失了一些参数。</li>
 </ol>
-<h1 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h1><h2 id="Vue-的响应式原理中-Object-defineProperty"><a href="#Vue-的响应式原理中-Object-defineProperty" class="headerlink" title="Vue 的响应式原理中 Object.defineProperty"></a>Vue 的响应式原理中 Object.defineProperty</h2><p>为什么在 Vue3.0 采用了 Proxy，抛弃了 Object.defineProperty？</p>
-<ul>
-<li>Object.defineProperty 无法监控到数组下标的变化，导致通过数组下标添 加元素，不能实时响应；</li>
-<li>Object.defineProperty 只能劫持对象的属性，从而需要对每个对象，每个 属性进行遍历，如果，属性值是对象，还需要深度遍历。Proxy 可以劫持整个对 象，并返回一个新的对象。</li>
-<li>Proxy 不仅可以代理对象，还可以代理数组。还可以代理动态增加的属性</li>
-</ul>
-<h2 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h2><h2 id="compted-和-watch-的区别"><a href="#compted-和-watch-的区别" class="headerlink" title="compted 和 watch 的区别"></a>compted 和 watch 的区别</h2><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h2 id="Vue-的父组件和子组件生命周期钩子执行顺序是什么"><a href="#Vue-的父组件和子组件生命周期钩子执行顺序是什么" class="headerlink" title="Vue 的父组件和子组件生命周期钩子执行顺序是什么"></a>Vue 的父组件和子组件生命周期钩子执行顺序是什么</h2><ol>
-<li>父组建： beforeCreate -&gt; created -&gt; beforeMount</li>
-<li>子组件： -&gt; beforeCreate -&gt; created -&gt; beforeMount -&gt; mounted</li>
-<li>父组件： -&gt; mounted</li>
-<li>总结：从外到内，再从内到外</li>
-</ol>
-<h2 id="React-和-Vue-的-diff-时间复杂度从-O-n-3-优化-到-O-n-，那么-O-n-3-和-O-n-是如何计算出来的？"><a href="#React-和-Vue-的-diff-时间复杂度从-O-n-3-优化-到-O-n-，那么-O-n-3-和-O-n-是如何计算出来的？" class="headerlink" title="React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？"></a>React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？</h2><p>三种优化来降低复杂度：</p>
-<ol>
-<li>如果父节点不同，放弃对子节点的比较，直接删除旧节点然后添加新的 节点重新渲染；</li>
-<li>如果子节点有变化，Virtual DOM 不会计算变化的是什么，而是重新渲染，</li>
-<li>通过唯一的 key 策略</li>
-</ol>
 <h1 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h1><h2 id="介绍下-webpack-热更新原理，是如何做到在不刷新-浏览器的前提下更新页面的"><a href="#介绍下-webpack-热更新原理，是如何做到在不刷新-浏览器的前提下更新页面的" class="headerlink" title="介绍下 webpack 热更新原理，是如何做到在不刷新 浏览器的前提下更新页面的"></a>介绍下 webpack 热更新原理，是如何做到在不刷新 浏览器的前提下更新页面的</h2><ol>
 <li>当修改了一个或多个文件；</li>
 <li>文件系统接收更改并通知 webpack；</li>
@@ -276,7 +258,24 @@
 <li>HMR 运行时替换更新中的模块，如果确定这些模块无法更新，则触发整 个页面刷新。</li>
 </ol>
 <h2 id="ajax-和-axios、fetch-的区别"><a href="#ajax-和-axios、fetch-的区别" class="headerlink" title="ajax 和 axios、fetch 的区别"></a>ajax 和 axios、fetch 的区别</h2><p>传统 Ajax ，核心使用 XMLHttpRequest 对象，多个请求之间如果有先后关系的话，就会出现回调地狱<br>axios 是一个基于 Promise 用于浏览器和 nodejs 的 HTTP 客户端，本质上也是对原生 XHR 的封装，只不过它是 Promise 的实现版本，符合最新的 ES 规范，它本身具有以下特征： 1.从浏览器中创建 XMLHttpRequest 2.支持 Promise API 3.客户端支持防止 CSRF 4.提供了一些并发请求的接口（重要，方便了很多的操作） 5.从 node.js 创建 http 请求 6.拦截请求和响应 7.转换请求和响应数据 8.取消请求 9.自动转换 JSON 数据</p>
+<p>fetch:优点</p>
+<ol>
+<li> 语法简洁，更加语义化</li>
+<li> 基于标准 Promise 实现，支持 async/await</li>
+<li> 同构方便，使用 <a target="_blank" rel="noopener" href="https://github.com/matthew-andrews/isomorphic-fetch">isomorphic-fetch</a></li>
+<li> 更加底层，提供的 API 丰富（request, response）</li>
+<li> 脱离了 XHR，是 ES 规范里新的实现方式</li>
+</ol>
+<p>缺点：<br>1）fetch 只对网络请求报错，对 400，500 都当做成功的请求，服务器返回 400，500 错误码时并不会 reject，只有网络错误这些导致请求不能完成时，fetch 才会被 reject。<br>2）fetch 默认不会带 cookie，需要添加配置项： fetch(url, {credentials: ‘include’})<br>3）fetch 不支持 abort，不支持超时控制，使用 setTimeout 及 Promise.reject 的实现的超时控制并不能阻止请求过程继续在后台运行，造成了流量的浪费<br>4）fetch 没有办法原生监测请求的进度，而 XHR 可以</p>
 <h2 id="大文件上传显示进度条"><a href="#大文件上传显示进度条" class="headerlink" title="大文件上传显示进度条"></a>大文件上传显示进度条</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">//原生获取上传进度的事件</span><br><br>onUploadProgress:<span class="hljs-function">(<span class="hljs-params">progressEvent</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">let</span> complete = (progressEvent.loaded / progressEvent.total * <span class="hljs-number">100</span> | <span class="hljs-number">0</span>) + <span class="hljs-string">&#x27;%&#x27;</span>;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;上传 &#x27;</span> + complete)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="CommonJS-和-Es-module"><a href="#CommonJS-和-Es-module" class="headerlink" title="CommonJS 和 Es module"></a>CommonJS 和 Es module</h2><p><a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/module-loader">Module 的加载实现</a></p>
+<p>CommonJS 的 require 语法是同步的，当我们使用 require 加载一个模块的时候，必须要等这个模块加载完后，才会执行后面的代码。 NodeJS 是服务端，使用 require 语法加载模块，一般是一个文件，只需要从本地硬盘中读取文件，它的速度是比较快的。但是在浏览器端就不一样了，文件一般存放在服务器或者 CDN 上，如果使用同步的方式加载一个模块还需要由网络来决定快慢，可能时间会很长，这样浏览器很容易进入“假死状态”。所以才有了后面的 AMD 和 CMD 模块化方案，它们都是异步加载的，比较适合在浏览器端使用</p>
+<p>差异：</p>
+<ul>
+<li>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用；</li>
+<li>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。</li>
+</ul>
+
             </div>
             <hr>
             <div>

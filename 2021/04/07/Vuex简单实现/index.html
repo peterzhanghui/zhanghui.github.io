@@ -236,7 +236,7 @@
 <h3 id="vuex-的-actions-特性是？"><a href="#vuex-的-actions-特性是？" class="headerlink" title="vuex 的 actions 特性是？"></a>vuex 的 actions 特性是？</h3><p>Action 类似于 mutation，不同的是 action 提交的是 mutation，不是 直接变更状态，可以包含任意异步操作</p>
 <h3 id="vuex-的优势"><a href="#vuex-的优势" class="headerlink" title="vuex 的优势"></a>vuex 的优势</h3><p>优点：解决了非父子组件的通信，减少了 ajax 请求次数，有些可以直接 从 state 中获取 缺点：刷新浏览器，vuex 中的 state 会重新变为初始状态，解决办法是 vuex-along，得配合计算属性和 sessionstorage 来实现</p>
 <h2 id="Vuex-的持久化处理"><a href="#Vuex-的持久化处理" class="headerlink" title="Vuex 的持久化处理"></a>Vuex 的持久化处理</h2><p>使用 Vuex 的插件 vuex-persist <a target="_blank" rel="noopener" href="https://github.com/championswimmer/vuex-persist#tips-for-nuxt">github 连接</a>文中有详细教程不在赘述，主要说一下在 nuxt.js 中的配置</p>
-<p>按照官网的教程新建 plugins 配置后，需要在配置 Vuex 的 store 文件夹 的 index.js 添加 插件配置。最总就可以实现持久化缓存了。</p>
+<p>按照官网的教程新建 plugins 配置后，需要在配置 Vuex 的 store 文件夹 的 index.js 添加 插件配置。最终就可以实现持久化缓存了。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> VuexPersistence <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex-persist&#x27;</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> plugins = [<span class="hljs-keyword">new</span> VuexPersistence().plugin];<br></code></pre></td></tr></table></figure>
 <h2 id="nuxt-js-使用-nuxtServerInit-获取组件数据"><a href="#nuxt-js-使用-nuxtServerInit-获取组件数据" class="headerlink" title="nuxt.js 使用 nuxtServerInit 获取组件数据"></a>nuxt.js 使用 nuxtServerInit 获取组件数据</h2><p>运行在服务端，都能帮助我们在页面渲染（组件加载 ）前操作 store。当我们想将服务端的一些数据传到客户端时，这个方法是灰常好用的。</p>
 <p>使用方法示例，具体可以结合自己业务需要处理相关数据</p>

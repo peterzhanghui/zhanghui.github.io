@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      2k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      22
        分钟
     </span>
   
@@ -249,7 +249,7 @@
 <h2 id="Vue-模板渲染的原理是什么？"><a href="#Vue-模板渲染的原理是什么？" class="headerlink" title="Vue 模板渲染的原理是什么？"></a>Vue 模板渲染的原理是什么？</h2><p>vue 中的模板 template 无法被浏览器解析并渲染，因为这不属于浏览器的标准，不是正确的 HTML 语法，所有需要将 template 转化成一个 JavaScript 函数，这样浏览器就可以执行这一个函数并渲染出对应的 HTML 元素，就可以让视图跑起来了，这一个转化的过程，就称为模板编译。</p>
 <p>模板编译又分三个阶段，解析 parse，优化 optimize，生成 generate，最终生成可执行函数 render。</p>
 <p>parse 阶段：使用大量的正则表达式对 template 字符串进行解析，将标签、指令、属性等转化为抽象语法树 AST。<br>optimize 阶段：遍历 AST，找到其中的一些静态节点并进行标记，方便在页面重渲染的时候进行 diff 比较时，直接跳过这一些静态节点，优化 runtime 的性能。<br>generate 阶段：将最终的 AST 转化为 render 函数字符串。</p>
-<h2 id="mvvm"><a href="#mvvm" class="headerlink" title="mvvm"></a>mvvm</h2><h2 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h2><p>在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM<br>源码实现延迟调用优先级是：Promise &gt; setImmediate &gt; MessageChannel &gt; setTimeout</p>
+<h2 id="mvvm（待做）"><a href="#mvvm（待做）" class="headerlink" title="mvvm（待做）"></a>mvvm（待做）</h2><h2 id="nextTick"><a href="#nextTick" class="headerlink" title="nextTick"></a>nextTick</h2><p>在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM<br>源码实现延迟调用优先级是：Promise &gt; setImmediate &gt; MessageChannel &gt; setTimeout</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 修改数据</span><br>vm.msg = &#x27;Hello&#x27;<br><span class="hljs-comment">// DOM 还没有更新</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>next<span class="hljs-constructor">Tick(<span class="hljs-params">function</span> ()</span> &#123;<br>  <span class="hljs-comment">// DOM 更新了</span><br>&#125;)<br><br><span class="hljs-comment">// 作为一个 Promise 使用 (2.1.0 起新增，详见接下来的提示)</span><br><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Vue</span>.</span></span>next<span class="hljs-constructor">Tick()</span><br>  .<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> <span class="hljs-literal">()</span> &#123;<br>    <span class="hljs-comment">// DOM 更新了</span><br>  &#125;)<br><br><br></code></pre></td></tr></table></figure>
 <h2 id="Vue-双数据绑定过程中，这边儿数据改变了怎么通知另一边"><a href="#Vue-双数据绑定过程中，这边儿数据改变了怎么通知另一边" class="headerlink" title="Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边"></a>Vue 双数据绑定过程中，这边儿数据改变了怎么通知另一边</h2><p>改变数据劫持和观察者模式 Vue 数据双向绑定是通过数据劫持和观察者模式来实现的， 数据劫持，object.defineproperty 它的目的是：当给属性赋值的时候，程序可以感知到，就可以控制属性值的有效范围，可以改变其他属性的 值观察者模式它的目的是当属性发生改变的时候，使用该数据的地方也发 生改变</p>
 <h2 id="Vue3-0-是如何变得更快的？（底层，源码）"><a href="#Vue3-0-是如何变得更快的？（底层，源码）" class="headerlink" title="Vue3.0 是如何变得更快的？（底层，源码）"></a>Vue3.0 是如何变得更快的？（底层，源码）</h2><ol>
@@ -259,6 +259,29 @@
 </li>
 <li><p>cacheHandlers 事件侦听器缓存 默认情况下 onClick 会被视为动态绑定，所以每次都会去追踪它的 变化但是因为是同一个函数，所以没有追踪变化，直接缓存起来复用 即可。</p>
 </li>
+</ol>
+<h2 id="vue-中的嵌套组件"><a href="#vue-中的嵌套组件" class="headerlink" title="vue 中的嵌套组件"></a>vue 中的嵌套组件</h2><p>组件定义中一定要声明定义 name 属性</p>
+<h2 id="按钮级别的权限设置，可以在利用自定义指令"><a href="#按钮级别的权限设置，可以在利用自定义指令" class="headerlink" title="按钮级别的权限设置，可以在利用自定义指令"></a>按钮级别的权限设置，可以在利用自定义指令</h2><p>引用 vue 官方文档对自定义指令的说明</p>
+<blockquote>
+<p>需要对普通 DOM 元素进行底层操作，这时候就会用到自定义指令</p>
+</blockquote>
+<h2 id="Vue-的响应式原理中-Object-defineProperty"><a href="#Vue-的响应式原理中-Object-defineProperty" class="headerlink" title="Vue 的响应式原理中 Object.defineProperty"></a>Vue 的响应式原理中 Object.defineProperty</h2><p>为什么在 Vue3.0 采用了 Proxy，抛弃了 Object.defineProperty？</p>
+<ul>
+<li>Object.defineProperty 无法监控到数组下标的变化，导致通过数组下标添 加元素，不能实时响应；</li>
+<li>Object.defineProperty 只能劫持对象的属性，从而需要对每个对象，每个 属性进行遍历，如果，属性值是对象，还需要深度遍历。Proxy 可以劫持整个对 象，并返回一个新的对象。</li>
+<li>Proxy 不仅可以代理对象，还可以代理数组。还可以代理动态增加的属性</li>
+</ul>
+<h2 id="Vue-的父组件和子组件生命周期钩子执行顺序是什么"><a href="#Vue-的父组件和子组件生命周期钩子执行顺序是什么" class="headerlink" title="Vue 的父组件和子组件生命周期钩子执行顺序是什么"></a>Vue 的父组件和子组件生命周期钩子执行顺序是什么</h2><ol>
+<li>父组建： beforeCreate -&gt; created -&gt; beforeMount</li>
+<li>子组件： -&gt; beforeCreate -&gt; created -&gt; beforeMount -&gt; mounted</li>
+<li>父组件： -&gt; mounted</li>
+<li>总结：从外到内，再从内到外</li>
+</ol>
+<h2 id="React-和-Vue-的-diff-时间复杂度从-O-n-3-优化-到-O-n-，那么-O-n-3-和-O-n-是如何计算出来的？"><a href="#React-和-Vue-的-diff-时间复杂度从-O-n-3-优化-到-O-n-，那么-O-n-3-和-O-n-是如何计算出来的？" class="headerlink" title="React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？"></a>React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化 到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？</h2><p>三种优化来降低复杂度：</p>
+<ol>
+<li>如果父节点不同，放弃对子节点的比较，直接删除旧节点然后添加新的 节点重新渲染；</li>
+<li>如果子节点有变化，Virtual DOM 不会计算变化的是什么，而是重新渲染，</li>
+<li>通过唯一的 key 策略</li>
 </ol>
 
             </div>
